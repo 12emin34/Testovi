@@ -1,13 +1,7 @@
-
-
-.test{
-    width: 50%;
-    height: 400px;
-    background-color: rgb(158, 163, 165);
-    border-radius: 40px;
-    display: flex;
-    flex-direction: row;
-
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
 .box{
@@ -18,49 +12,30 @@
     align-items: center;
 }
 
-.pitanje-odg{
-    width: 60%;
-    height: 100%;
+.box-pitanje{
+    width: 45%;
+    height: 340px;
+    border-radius: 50px;
     background-color: blue;
-    display: flex;
-    flex-direction:column ;
 }
-
-.slika{
-    width: 40%;
-    height: 100%;
-    background-color: aqua;
-}
-
 .pitanje{
     width: 100%;
     height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rebeccapurple;
+    border-radius: 30px;
+}
+
+.rednibroj{
+    width: 40px;
+    height: 40px;
     background-color: red;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.odgovori{
-    width: 100%;
-    height: 60%;
-    background-color: yellow;
-}
-
-.slika{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.redni-broj{
-    width: 35px;
-    height: 35px;
-    background-color: yellow;
     border-radius: 50%;
+    margin-right: 20px;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
