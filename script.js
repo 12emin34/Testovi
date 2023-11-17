@@ -31,9 +31,25 @@ class Pitanje {
     }
 }
 
+
+/*
 let pitanje1 = new Pitanje([["odgovor 1", true], ["odgovor 2", false]])
 console.log(pitanje1.odgovori)
 
 let noviElement = document.createElement("h1")
 noviElement.innerText = "dzaja"
 document.body.appendChild(noviElement)
+*/
+function novoPitanje(pitanje) {
+
+    let glavniBox = document.getElementById("box")
+
+    let divPitanje = document.createElement("div")
+    divPitanje.className = "box-pitanje"
+
+    glavniBox.appendChild(divPitanje)
+
+}
+
+let pitanje1 = new Pitanje([["odgovor 1", true], ["odgovor 2", false]]);
+novoPitanje(pitanje1);
