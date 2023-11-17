@@ -4,39 +4,52 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.box {
+#box {
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #dddddd;
 }
 
 .box-pitanje {
     width: 45%;
-    height: 340px;
+    height: 220px;
     border-radius: 50px;
-    background-color: blue;
+    background-color: #fff;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .pitanje {
     width: 100%;
-    height: 40%;
+    height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rebeccapurple;
     border-radius: 30px;
 }
 
 .rednibroj {
     width: 40px;
     height: 40px;
-    background-color: red;
+    background-color: #062859;
     border-radius: 50%;
     margin-right: 20px;
-
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.odgovori{
+    width: 100%;
+    height: 50%;
+    border-radius: 30px;
+
+    align-items: center;
+}
+
+.odgovori input{
+    margin-left: 70px;    
 }
