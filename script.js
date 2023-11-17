@@ -6,7 +6,7 @@
 class Pitanje {
     /**
      * Predstavlja kolekciju parova odgovora i njihove tačnosti u obliku Map objekta
-     * @type {Map<any, any>}
+     * @type {Map<string, boolean>}
      */
     #odgovori = new Map();
 
@@ -16,7 +16,7 @@ class Pitanje {
 
     /**
      * Vraća sve odgovore od pitanja u obliku Map objekta
-     * @returns {Map<any, any>}
+     * @returns {Map<string, boolean>}
      */
     get odgovori() {
         return this.#odgovori
@@ -31,4 +31,9 @@ class Pitanje {
     }
 }
 
-let pitanje1 = new Pitanje()
+let pitanje1 = new Pitanje([["odgovor 1", true], ["odgovor 2", false]])
+console.log(pitanje1.odgovori)
+
+let noviElement = document.createElement("h1")
+noviElement.innerText = "dzaja"
+document.body.appendChild(noviElement)

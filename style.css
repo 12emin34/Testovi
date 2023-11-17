@@ -1,10 +1,10 @@
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
 }
 
-.box{
+.box {
     width: 100%;
     height: 100vh;
     display: flex;
@@ -12,13 +12,14 @@
     align-items: center;
 }
 
-.box-pitanje{
+.box-pitanje {
     width: 45%;
     height: 340px;
     border-radius: 50px;
     background-color: blue;
 }
-.pitanje{
+
+.pitanje {
     width: 100%;
     height: 40%;
     display: flex;
@@ -28,7 +29,7 @@
     border-radius: 30px;
 }
 
-.rednibroj{
+.rednibroj {
     width: 40px;
     height: 40px;
     background-color: red;
