@@ -41,7 +41,9 @@ noviElement.innerText = "dzaja"
 document.body.appendChild(noviElement)
 */
 function novoPitanje(pitanje) {
-
+    /** 
+     *varijabla koja predstavlja div u kojem se nalaze pitanje i odgovori 
+    */
     let glavniBox = document.getElementById("box")
 
     let divPitanje = document.createElement("div")
@@ -52,4 +54,8 @@ function novoPitanje(pitanje) {
 }
 
 let pitanje1 = new Pitanje([["odgovor 1", true], ["odgovor 2", false]]);
+let pitanje2 = new Pitanje([["odgovor 1", true], ["odgovor 2", false]]);
+let pitanje3 = new Pitanje([["odgovor 1", true], ["odgovor 2", false]]);
 novoPitanje(pitanje1);
+novoPitanje(pitanje2);
+novoPitanje(pitanje3)
