@@ -122,7 +122,7 @@ function novoPitanje(pitanje) {
 
         let odgovor = document.createElement("label")
         odgovor.appendChild(odabraniOdgovor)
-        odabraniOdgovor.insertAdjacentText("afterend", key)
+        odgovor.insertAdjacentText("beforeend", " " + key)
 
         let brOdgovori = document.createElement("br")
 
