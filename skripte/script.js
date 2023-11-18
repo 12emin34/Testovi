@@ -121,11 +121,11 @@ function novoPitanje(pitanje) {
         odabraniOdgovor.type = "checkbox"
 
         let odgovor = document.createElement("label")
-        odgovor.innerText = key
+        odgovor.appendChild(odabraniOdgovor)
+        odabraniOdgovor.insertAdjacentText("afterend", key)
 
         let brOdgovori = document.createElement("br")
 
-        divOdgovori.appendChild(odabraniOdgovor)
         divOdgovori.appendChild(odgovor)
         divOdgovori.appendChild(brOdgovori)
     }
