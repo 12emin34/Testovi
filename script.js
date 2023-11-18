@@ -50,6 +50,14 @@ class Pitanje {
     }
 
     /**
+     * Vraća ID pitanja
+     * @returns {number}
+     */
+    get id() {
+        return this.#id
+    }
+
+    /**
      * Postavlja odgovore za pitanje
      * @param nizOdgovora
      */
