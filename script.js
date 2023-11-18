@@ -4,7 +4,9 @@ let trenutniIdPitanja = 0
 /**
  * Predstavlja pitanje zajedno sa njegovim odgovorima
  * @constructor
- * @param {array} nizOdgovora
+ * @param pitanje
+ * @param nizOdgovora
+ * @param id
  */
 class Pitanje {
     /**
