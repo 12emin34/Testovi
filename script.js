@@ -77,14 +77,9 @@ class Pitanje {
  * @param pitanje
  */
 function novoPitanje(pitanje) {
-    /** 
-     *varijabla koja predstavlja glavni div
-    */
+    
     let glavniBox = document.getElementById("box")
 
-    /**
-     * varijabla koja predstavlja div u kojem se nalaze pitanje i odgovori
-     */
     let divPitanjeIOdg = document.createElement("div")
     divPitanjeIOdg.className = "box-pitanje"
     glavniBox.appendChild(divPitanjeIOdg)
