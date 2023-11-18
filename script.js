@@ -1,4 +1,5 @@
-let brojPitanja = 2;
+let brojPitanja = 2
+let trenutniIdPitanja = 0
 
 /**
  * Predstavlja pitanje zajedno sa njegovim odgovorima
@@ -6,7 +7,11 @@ let brojPitanja = 2;
  * @param {array} nizOdgovora
  */
 class Pitanje {
-    #pitanje = "";
+    /**
+     * Predstavlja tekst pitanja
+     * @type {string}
+     */
+    #pitanje = ""
 
     /**
      * Predstavlja kolekciju parova odgovora i njihove tačnosti u obliku Map objekta
@@ -14,9 +19,16 @@ class Pitanje {
      */
     #odgovori = new Map();
 
-    constructor(pitanje, nizOdgovora) {
-        this.#pitanje = pitanje
+    /**
+     * Predstavlja jedinstveni ID broj pitanja, koristi se za provjeravanje
+     * @type {number}
+     */
+    #id = 0
+
+    constructor(pitanje, nizOdgovora, id) {
+        this.#pitanje = pitanje 
         this.#odgovori = new Map(nizOdgovora)
+        this.#id = id
     }
 
     /**
@@ -27,6 +39,10 @@ class Pitanje {
         return this.#odgovori
     }
 
+    /**
+     * Vraća tekst pitanja
+     * @returns {string}
+     */
     get pitanje() {
         return this.#pitanje
     }
@@ -39,38 +55,48 @@ class Pitanje {
         this.#odgovori = new Map(nizOdgovora)
     }
 
-    set pitanje(pitanje) {
+    /**
+     * Postavlja tekst pitanja
+     * @param pitanje
+     */
+    set pitanje(pitanje){
         this.#pitanje = pitanje
     }
 
-    brojOdgovora() {
-        return this.#odgovori.size;
+    /**
+     * Vraća broj odgovora u pitanju
+     * @returns {number}
+     */
+    brojOdgovora(){
+        return this.#odgovori.size
     }
 }
 
-/**
- * Funkcija koja se koristi za prikazivanje novog pitanja u html dokumentu
- * @param {*} pitanje 
- */
 function novoPitanje(pitanje) {
+    /** 
+     *varijabla koja predstavlja glavni div
+    */
     let glavniBox = document.getElementById("box")
 
+    /**
+     * varijabla koja predstavlja div u kojem se nalaze pitanje i odgovori
+     */
     let divPitanjeIOdg = document.createElement("div")
     divPitanjeIOdg.className = "box-pitanje"
     glavniBox.appendChild(divPitanjeIOdg)
 
     let divPitanje = document.createElement("div")
     divPitanje.className = "pitanje"
-    divPitanjeIOdg.appendChild(divPitanje);
+    divPitanjeIOdg.appendChild(divPitanje)
 
     let divRedniBr = document.createElement("div")
     divRedniBr.className = "rednibroj"
-    divPitanje.appendChild(divRedniBr);
+    divPitanje.appendChild(divRedniBr)
 
     let hBrojPitanja = document.createElement("h4")
     divRedniBr.appendChild(hBrojPitanja)
-    hBrojPitanja.innerText = brojPitanja.toString();
-    brojPitanja++;
+    hBrojPitanja.innerText = brojPitanja.toString()
+    brojPitanja++
 
     let pPitanje = document.createElement("h4")
     divPitanje.appendChild(pPitanje)
@@ -79,7 +105,7 @@ function novoPitanje(pitanje) {
     let divOdgovori = document.createElement("div")
     divOdgovori.className = "odgovori"
     divPitanjeIOdg.appendChild(divOdgovori)
-    
+
     for (const [key, value] of pitanje.odgovori) {
         let odabraniOdgovor = document.createElement("input")
         odabraniOdgovor.type = "checkbox"
@@ -93,15 +119,16 @@ function novoPitanje(pitanje) {
         divOdgovori.appendChild(odgovor)
         divOdgovori.appendChild(brOdgovori)
     }
+
+
+
 }
-/**
- * Sljedeći dio je privremen, koristi se samo za isprobavanje prethodnog koda
- */
-let pitanje1 = new Pitanje("Kako se naziva uzdužni dio kolovoza namijenjen za saobraćaj vozila u jednom smijeru sa jednom ili više saobraćajnih traka? ", [["odgovor 1", true], ["odgovor 2", false]]);
-let pitanje2 = new Pitanje("Mami", [["odgovor 1", true], ["odgovor 2", false]]);
-let pitanje3 = new Pitanje("Da napravi jesti", [["odgovor 1", true], ["odgovor 2", false], ["odgovor3", false], ["odgovor4", false]]);
+
+let pitanje1 = new Pitanje("Kako se naziva uzdužni dio kolovoza namijenjen za saobraćaj vozila u jednom smijeru sa jednom ili više saobraćajnih traka? ", [["odgovor 1", true], ["odgovor 2", false]], 0)
+let pitanje2 = new Pitanje("Mami", [["odgovor 1", true], ["odgovor 2", false]], 1)
+let pitanje3 = new Pitanje("Da napravi jesti", [["odgovor 1", true], ["odgovor 2", false], ["odgovor3", false] , ["odgovor4", false]], 2)
 
 
-novoPitanje(pitanje1);
-novoPitanje(pitanje2);
-novoPitanje(pitanje3);
+novoPitanje(pitanje1)
+novoPitanje(pitanje2)
+novoPitanje(pitanje3)
