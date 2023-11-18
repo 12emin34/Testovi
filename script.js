@@ -1,4 +1,4 @@
-var brojPitanja = 2;
+let brojPitanja = 2;
 
 /**
  * Predstavlja pitanje zajedno sa njegovim odgovorima
