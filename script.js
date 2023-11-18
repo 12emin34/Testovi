@@ -71,7 +71,7 @@ function novoPitanje(pitanje) {
 
     let hBrojPitanja = document.createElement("h4")
     divRedniBr.appendChild(hBrojPitanja)
-    hBrojPitanja.innerText = brojPitanja;
+    hBrojPitanja.innerText = brojPitanja.toString();
     brojPitanja++;
 
     let pPitanje = document.createElement("h4")
