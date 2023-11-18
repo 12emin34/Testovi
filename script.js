@@ -123,9 +123,7 @@ function novoPitanje(pitanje) {
 
 }
 
-/**
- * Sljedeći dio je privremen, koristi se samo za isprobavanje prethodnog koda
- */
+// Sljedeći dio je privremen, koristi se samo za isprobavanje prethodnog koda
 let pitanje1 = new Pitanje("Kako se naziva uzdužni dio kolovoza namijenjen za saobraćaj vozila u jednom smijeru sa jednom ili više saobraćajnih traka? ", [["odgovor 1", true], ["odgovor 2", false]], 0)
 let pitanje2 = new Pitanje("Mami", [["odgovor 1", true], ["odgovor 2", false]], 1)
 let pitanje3 = new Pitanje("Da napravi jesti", [["odgovor 1", true], ["odgovor 2", false], ["odgovor3", false] , ["odgovor4", false]], 2)
