@@ -23,7 +23,6 @@ class Pitanje {
     constructor(pitanje, nizOdgovora, id) {
         this.#pitanje = pitanje 
         this.#odgovori = new Map(nizOdgovora)
-        this.#id = id
     }
 
     /**
@@ -46,9 +45,6 @@ class Pitanje {
      * Vraća ID pitanja
      * @returns {number}
      */
-    get id() {
-        return this.#id
-    }
 
     /**
      * Postavlja odgovore za pitanje
