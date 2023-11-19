@@ -1,5 +1,4 @@
 let brojPitanja = 2
-let trenutniIdPitanja = 0
 
 /**
  * Predstavlja pitanje zajedno sa njegovim odgovorima
@@ -20,12 +19,6 @@ class Pitanje {
      * @type {Map<string, boolean>}
      */
     #odgovori = new Map();
-
-    /**
-     * Predstavlja jedinstveni ID broj pitanja, koristi se za provjeravanje
-     * @type {number}
-     */
-    #id = 0
 
     constructor(pitanje, nizOdgovora, id) {
         this.#pitanje = pitanje 
@@ -91,8 +84,7 @@ function novoPitanje(pitanje) {
     let glavniBox = document.getElementById("box")
 
     let divPitanjeIOdg = document.createElement("div")
-    divPitanjeIOdg.className = "box-pitanje"
-    divPitanjeIOdg.id = pitanje.id
+    divPitanjeIOdg.className = "box-pitanje" 
     glavniBox.appendChild(divPitanjeIOdg)
 
     let divPitanje = document.createElement("div")
