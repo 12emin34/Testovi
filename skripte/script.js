@@ -88,7 +88,11 @@ function novoPitanje(pitanje) {
 
     let divRedniBr = document.createElement("div")
     divRedniBr.className = "rednibroj"
-    divPitanje.appendChild(divRedniBr)
+
+    let divZaRedniBroj = document.createElement("div")
+    divZaRedniBroj.className = "redni-broj-div"
+    divPitanje.appendChild(divZaRedniBroj)
+    divZaRedniBroj.appendChild(divRedniBr)
 
     let hBrojPitanja = document.createElement("h4")
     divRedniBr.appendChild(hBrojPitanja)
@@ -96,8 +100,13 @@ function novoPitanje(pitanje) {
     brojPitanja++
 
     let pPitanje = document.createElement("h4")
-    divPitanje.appendChild(pPitanje)
     pPitanje.innerText = pitanje.pitanje
+
+    let divP = document.createElement("div")
+    divP.className = "pitanje-div"
+    divP.appendChild(pPitanje)
+    divPitanje.appendChild(divP)
+    
 
     let divOdgovori = document.createElement("div")
     divOdgovori.className = "odgovori"
