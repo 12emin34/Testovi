@@ -1,4 +1,5 @@
-let brojPitanja = 2
+let brojPitanja = 1
+let glavniBox = document.getElementById("box")
 
 /**
  * Predstavlja pitanje zajedno sa njegovim odgovorima
