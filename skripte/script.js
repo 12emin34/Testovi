@@ -123,6 +123,23 @@ function novoPitanje(pitanje) {
     }
 }
 
+function provjeriOdgovore(pitanja) {
+    let boxPitanja = document.getElementsByClassName("box-pitanje")
+    let rezultat = []
+    for (let i = 0; i < pitanja.length; i++) {
+        let inputOdgovori = boxPitanja.item(i).getElementsByTagName("input")
+        let tacno = true
+        for (let j = 0; j < pitanja[i].brojOdgovora(); j++) {
+            if (Array.from(pitanja[i].odgovori.values())[j] !== inputOdgovori.item(j).checked) {
+                tacno = false
+                break
+            }
+        }
+        rezultat.push(tacno)
+    }
+    return rezultat
+}
+
 // Sljedeći dio je privremen, koristi se samo za isprobavanje prethodnog koda
 let pitanje1 = new Pitanje("Kako se naziva uzdužni dio kolovoza namijenjen za saobraćaj vozila u jednom smijeru sa jednom ili više saobraćajnih traka? ", [["odgovor 1", true], ["odgovor 2", false]])
 let pitanje2 = new Pitanje("Mami", [["odgovor 1", true], ["odgovor 2", false]])
@@ -131,3 +148,18 @@ let pitanje3 = new Pitanje("Da napravi jesti", [["odgovor 1", true], ["odgovor 2
 novoPitanje(pitanje1)
 novoPitanje(pitanje2)
 novoPitanje(pitanje3)
+
+let pitanja = [
+    pitanje1,
+    pitanje2,
+    pitanje3
+]
+
+let dugmeZaProvjeru = document.createElement("button")
+dugmeZaProvjeru.innerText = "Provjeri"
+glavniBox.appendChild(dugmeZaProvjeru)
+dugmeZaProvjeru.addEventListener("click", (e) => {
+    let privremeniTekst = document.createElement("p")
+    privremeniTekst.innerText = provjeriOdgovore(pitanja).toString()
+    glavniBox.appendChild(privremeniTekst)
+})
