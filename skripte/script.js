@@ -41,11 +41,6 @@ class Pitanje {
     }
 
     /**
-     * Vraća ID pitanja
-     * @returns {number}
-     */
-
-    /**
      * Postavlja odgovore za pitanje
      * @param nizOdgovora
      */
