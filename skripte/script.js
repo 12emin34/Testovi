@@ -123,6 +123,11 @@ function novoPitanje(pitanje) {
     }
 }
 
+/**
+ * Provjerava tačnost odgovora i vraća niz sa rezultatima te provjere (true ili false za svako pitanje)
+ * @param pitanja
+ * @returns {boolean[]}
+ */
 function provjeriOdgovore(pitanja) {
     let boxPitanja = document.getElementsByClassName("box-pitanje")
     let rezultat = []
