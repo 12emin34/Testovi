@@ -71,3 +71,70 @@
     align-items: center;
 
 }
+
+
+
+
+
+
+
+
+
+.container{
+    height: 220px;
+    width: 45%;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 10% 60% 30%;
+    grid-template-rows: 50% 50% ;
+}
+
+.redniBroj{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.broj{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #1c3d52;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+
+.Pitanje{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.odgovor{
+
+    grid-column-end: span 2;
+   
+}
+
+.slika{
+    grid-row-end: span 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slika img {
+    transform: scale(0.6);
+}
+
+.odgovor input{
+    margin-left: 70px;
+}
