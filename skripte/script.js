@@ -86,7 +86,6 @@ function novoPitanje(pitanje) {
 
     let divPitanjeIOdg = document.createElement("div")
     divPitanjeIOdg.classList.add("box-pitanje")
-    divPitanjeIOdg.classList.add("grid-obicno")
     glavniBox.appendChild(divPitanjeIOdg)
 
     let divRedniBr = document.createElement("div")
@@ -118,6 +117,8 @@ function novoPitanje(pitanje) {
         divSlika.appendChild(imgSlika)
         divPitanjeIOdg.appendChild(divSlika)
         divPitanjeIOdg.classList.add("grid-slika")
+    } else {
+        divPitanjeIOdg.classList.add("grid-obicno")
     }
 
     let divOdgovori = document.createElement("div")
