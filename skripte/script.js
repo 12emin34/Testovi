@@ -20,6 +20,8 @@ class Pitanje {
      */
     #odgovori = new Map();
 
+    #slika = ""
+
     constructor(pitanje, nizOdgovora) {
         this.#pitanje = pitanje 
         this.#odgovori = new Map(nizOdgovora)
@@ -57,6 +59,14 @@ class Pitanje {
         this.#pitanje = pitanje
     }
 
+    get slika() {
+        return this.#slika;
+    }
+
+    set slika(slika) {
+        this.#slika = slika;
+    }
+
     /**
      * Vraća broj odgovora u pitanju
      * @returns {number}
@@ -78,16 +88,12 @@ function novoPitanje(pitanje) {
     divPitanjeIOdg.className = "box-pitanje" 
     glavniBox.appendChild(divPitanjeIOdg)
 
-    let divPitanje = document.createElement("div")
-    divPitanje.className = "pitanje"
-    divPitanjeIOdg.appendChild(divPitanje)
-
     let divRedniBr = document.createElement("div")
-    divRedniBr.className = "rednibroj"
+    divRedniBr.className = "broj"
 
     let divZaRedniBroj = document.createElement("div")
-    divZaRedniBroj.className = "redni-broj-div"
-    divPitanje.appendChild(divZaRedniBroj)
+    divZaRedniBroj.className = "redniBroj"
+    divPitanjeIOdg.appendChild(divZaRedniBroj)
     divZaRedniBroj.appendChild(divRedniBr)
 
     let hBrojPitanja = document.createElement("h4")
@@ -95,17 +101,25 @@ function novoPitanje(pitanje) {
     hBrojPitanja.innerText = brojPitanja.toString()
     brojPitanja++
 
+    let divPitanje = document.createElement("div")
+    divPitanje.className = "pitanje"
+    divPitanjeIOdg.appendChild(divPitanje)
+
     let pPitanje = document.createElement("h4")
     pPitanje.innerText = pitanje.pitanje
-
-    let divP = document.createElement("div")
-    divP.className = "pitanje-div"
-    divP.appendChild(pPitanje)
-    divPitanje.appendChild(divP)
+    divPitanje.appendChild(pPitanje)
     
+    if (pitanje.slika !== "") {
+        let divSlika = document.createElement("div")
+        divSlika.className = "slika"
+        let imgSlika = document.createElement("img")
+        imgSlika.src = pitanje.slika
+        divSlika.appendChild(imgSlika)
+        divPitanjeIOdg.appendChild(divSlika)
+    }
 
     let divOdgovori = document.createElement("div")
-    divOdgovori.className = "odgovori"
+    divOdgovori.className = "odgovor"
     divPitanjeIOdg.appendChild(divOdgovori)
 
     for (const [key, value] of pitanje.odgovori) {
