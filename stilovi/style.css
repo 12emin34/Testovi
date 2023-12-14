@@ -50,41 +50,33 @@
 */
 
 
-.odgovori{
-    width: 100%;
-    height: 50%;
-    border-radius: 30px;
+/*.odgovori{*/
+/*    width: 100%;*/
+/*    height: 50%;*/
+/*    border-radius: 30px;*/
 
-    align-items: center;
-}
+/*    align-items: center;*/
+/*}*/
 
-.odgovori input{
-    margin-left: 70px;    
-}
+/*.odgovori input{*/
+/*    margin-left: 70px;    */
+/*}*/
 
-.rednibroj{
-    width: 10%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-}
+/*.rednibroj{*/
+/*    width: 10%;*/
+/*    height: auto;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
 
-.pitanje-div{
-    height: auto;
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/*.pitanje-div{*/
+/*    height: auto;*/
+/*    width: 90%;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
 
-}
-
-
-
-
-
-
-
-
+/*}*/
 
 .box-pitanje{
     height: 220px;
@@ -94,12 +86,18 @@
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     margin-top: 50px;
     display: grid;
-    grid-template-columns: 10% 60% 30%;
     grid-template-rows: 50% 50% ;
 }
 
-.redniBroj{
+.grid-slika {
+    grid-template-columns: 10% 60% 30%;
+}
 
+.grid-obicno {
+    grid-template-columns: 10% 90% 0;
+}
+
+.redniBroj{
     display: flex;
     justify-content: center;
     align-items: center;
