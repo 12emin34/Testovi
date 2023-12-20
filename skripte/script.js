@@ -152,9 +152,17 @@ function provjeriOdgovore(pitanja) {
         let inputOdgovori = boxPitanja.item(i).getElementsByTagName("input")
         let tacno = true
         for (let j = 0; j < pitanja[i].brojOdgovora(); j++) {
+            let label = inputOdgovori.item(j).parentElement
             if (Array.from(pitanja[i].odgovori.values())[j] !== inputOdgovori.item(j).checked) {
                 tacno = false
-                break
+                if (inputOdgovori.item(j).checked) {
+                    label.insertAdjacentHTML("beforeend", "<i class=\"fa-solid fa-xmark\"></i>")
+                    label.classList.add("netacno")
+                }
+            } else {
+                if (inputOdgovori.item(j).checked) {
+                    label.insertAdjacentHTML("beforeend", "<i class=\"fa-solid fa-check\"></i>")
+                }
             }
         }
         rezultat.push(tacno)
@@ -181,7 +189,5 @@ let dugmeZaProvjeru = document.createElement("button")
 dugmeZaProvjeru.innerText = "Provjeri"
 glavniBox.appendChild(dugmeZaProvjeru)
 dugmeZaProvjeru.addEventListener("click", (e) => {
-    let privremeniTekst = document.createElement("p")
-    privremeniTekst.innerText = provjeriOdgovore(pitanja).toString()
-    glavniBox.appendChild(privremeniTekst)
+    provjeriOdgovore(pitanja)
 })
