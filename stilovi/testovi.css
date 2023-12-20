@@ -72,3 +72,11 @@
 .odgovor input {
     margin-left: 70px;
 }
+
+.fa-xmark {
+    color: red ;
+}
+
+.fa-check {
+    color: green ;
+}
