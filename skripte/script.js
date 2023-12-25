@@ -186,7 +186,10 @@ let pitanja = [
 ]
 
 let dugmeZaProvjeru = document.createElement("button")
-dugmeZaProvjeru.innerText = "Provjeri"
+dugmeZaProvjeru.className = "provjeriButton"
+let dugmeZaProvjeruSpan = document.createElement("span")
+dugmeZaProvjeruSpan.innerHTML = "Provjeri"
+dugmeZaProvjeru.appendChild(dugmeZaProvjeruSpan)
 glavniBox.appendChild(dugmeZaProvjeru)
 dugmeZaProvjeru.addEventListener("click", (e) => {
     provjeriOdgovore(pitanja)
