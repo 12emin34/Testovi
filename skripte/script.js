@@ -158,11 +158,11 @@ function provjeriOdgovore(pitanja) {
                 if (inputOdgovori.item(j).checked) {
                     label.insertAdjacentHTML("beforeend", "<i class=\"fa-solid fa-xmark\"></i>")
                     label.classList.add("netacno")
-                }
-            } else {
-                if (inputOdgovori.item(j).checked) {
+                } else if (!inputOdgovori.item(j).checked && Array.from(pitanja[i].odgovori.values())[j]) {
                     label.insertAdjacentHTML("beforeend", "<i class=\"fa-solid fa-check\"></i>")
                 }
+            } else if (inputOdgovori.item(j).checked) {
+                label.insertAdjacentHTML("beforeend", "<i class=\"fa-solid fa-check\"></i>")
             }
         }
         rezultat.push(tacno)
