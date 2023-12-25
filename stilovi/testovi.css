@@ -1,6 +1,7 @@
-*{
+* {
     margin: 0;
     padding: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
 #box {
@@ -74,13 +75,58 @@
 }
 
 .fa-xmark {
-    color: red ;
+    color: red;
 }
 
 .fa-check {
-    color: green ;
+    color: green;
 }
 
-.netacno{
+.netacno {
     text-decoration: line-through;
+}
+
+
+
+.provjeriButton {
+    border: medium;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    font-size: 1rem;
+    background-color: #1c3d52;
+    padding: 1rem 4rem;
+    margin-left: 5px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+    border-radius: 10px;
+}
+
+.provjeriButton:hover {
+    background: none;
+}
+
+.provjeriButton span {
+    position: relative;
+    z-index: 1;
+}
+
+.provjeriButton::after {
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 490%;
+    width: 140%;
+    background: #e3ae00;
+    transition: all 0.5s ease-in-out 0s;
+    transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.provjeriButton:hover::after {
+    transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
