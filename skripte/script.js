@@ -1,6 +1,40 @@
 let brojPitanja = 1
 let glavniBox = document.getElementById("box")
 
+class Test {
+    #ime = ""
+    #pitanja = [];
+
+    constructor(ime) {
+        this.#ime = ime;
+    }
+
+    get ime() {
+        return this.#ime;
+    }
+
+    set ime(vrijednost) {
+        this.#ime = vrijednost;
+    }
+
+    get pitanja() {
+        return this.#pitanja;
+    }
+
+    toJSON() {
+        return {
+            ime: this.#ime,
+            pitanja: this.#pitanja.map(pitanje => pitanje.toJSON())
+        };
+    }
+
+    static fromJSON(json) {
+        const test = new Test(json.ime);
+        test.#pitanja = json.pitanja.map(Pitanje.fromJSON);
+        return test;
+    }
+}
+
 /**
  * Predstavlja pitanje zajedno sa njegovim odgovorima
  * @constructor
@@ -73,6 +107,20 @@ class Pitanje {
      */
     brojOdgovora(){
         return this.#odgovori.size
+    }
+
+    toJSON() {
+        return {
+            pitanje: this.#pitanje,
+            odgovori: Array.from(this.#odgovori),
+            slika: this.#slika
+        };
+    }
+
+    static fromJSON(json) {
+        const pitanje = new Pitanje(json.pitanje, json.odgovori);
+        pitanje.#slika = json.slika;
+        return pitanje;
     }
 }
 
@@ -170,27 +218,72 @@ function provjeriOdgovore(pitanja) {
     return rezultat
 }
 
-// Sljedeći dio je privremen, koristi se samo za isprobavanje prethodnog koda
-let pitanje1 = new Pitanje("Kako se naziva uzdužni dio kolovoza namijenjen za saobraćaj vozila u jednom smijeru sa jednom ili više saobraćajnih traka? ", [["odgovor 1", true], ["odgovor 2", false]])
-let pitanje2 = new Pitanje("Mami", [["odgovor 1", true], ["odgovor 2", false]])
-let pitanje3 = new Pitanje("Da napravi jesti", [["odgovor 1", true], ["odgovor 2", false], ["odgovor3", false] , ["odgovor4", false]])
+function testRender(url) {
+    fetch(url)
+        .then(response => response.json())
+        .then(jsonData => {
+            let test = Test.fromJSON(jsonData)
 
-novoPitanje(pitanje1)
-novoPitanje(pitanje2)
-novoPitanje(pitanje3)
+            for (let pitanje of test.pitanja) {
+                novoPitanje(pitanje)
+            }
 
-let pitanja = [
-    pitanje1,
-    pitanje2,
-    pitanje3
-]
+            let dugmeZaProvjeru = document.createElement("button")
+            dugmeZaProvjeru.className = "provjeriButton"
+            let dugmeZaProvjeruSpan = document.createElement("span")
+            dugmeZaProvjeruSpan.innerHTML = "Provjeri"
+            dugmeZaProvjeru.appendChild(dugmeZaProvjeruSpan)
+            glavniBox.appendChild(dugmeZaProvjeru)
+            dugmeZaProvjeru.addEventListener("click", (e) => {
+                provjeriOdgovore(test.pitanja)
+            })
 
-let dugmeZaProvjeru = document.createElement("button")
-dugmeZaProvjeru.className = "provjeriButton"
-let dugmeZaProvjeruSpan = document.createElement("span")
-dugmeZaProvjeruSpan.innerHTML = "Provjeri"
-dugmeZaProvjeru.appendChild(dugmeZaProvjeruSpan)
-glavniBox.appendChild(dugmeZaProvjeru)
-dugmeZaProvjeru.addEventListener("click", (e) => {
-    provjeriOdgovore(pitanja)
-})
+            console.log(test.toJSON())
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function testListRender() {
+    let text = document.createElement("h1")
+    text.innerText = "Izaberi koji test želiš raditi"
+    glavniBox.appendChild(text)
+    fetch('test_data/index.json')
+        .then(response => response.json())
+        .then(jsonData => {
+            let testovi = jsonData.testovi
+            for (let test of testovi) {
+                let dugmeZaTest = document.createElement("button")
+                dugmeZaTest.className = "provjeriButton"
+                let dugmeZaTestSpan = document.createElement("span")
+                dugmeZaTestSpan.innerHTML = test.replace(".json", "")
+                dugmeZaTest.appendChild(dugmeZaTestSpan)
+                dugmeZaTest.addEventListener("click", (e) => {
+                    glavniBox.innerText = ""
+                    testRender('test_data/' + test)
+                })
+                glavniBox.appendChild(dugmeZaTest)
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+testListRender()
+
+
+// let testovi = ["test1.json"]
+// let obj = {
+//     testovi: testovi
+// }
+// console.log(JSON.stringify(obj))
+
+
+// let test1 = new Test("Test 1")
+// let pitanje1 = new Pitanje("Kako se naziva uzdužni dio kolovoza namijenjen za saobraćaj vozila u jednom smijeru sa jednom ili više saobraćajnih traka? ", [["odgovor 1", true], ["odgovor 2", false]])
+// let pitanje2 = new Pitanje("Mami", [["odgovor 1", true], ["odgovor 2", false]])
+// let pitanje3 = new Pitanje("Da napravi jesti", [["odgovor 1", true], ["odgovor 2", false], ["odgovor3", false] , ["odgovor4", false]])
+//
+// test1.pitanja.push(pitanje1)
+// test1.pitanja.push(pitanje2)
+// test1.pitanja.push(pitanje3)
+//
+// console.log(JSON.stringify(test1.toJSON()))
