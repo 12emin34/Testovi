@@ -5,29 +5,39 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Document</title>
-    <link rel="stylesheet" href="pocetnaEditor.css">
+    <link href="css/pocetnaEditor.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
-    <script src="https://kit.fontawesome.com/57017d873d.js" crossorigin="anonymous"></script>
+    <script crossorigin="anonymous" src="https://kit.fontawesome.com/57017d873d.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
+
 <body>
+<nav>
+    <div class="infoText">
+        <div class="box1"></div>
+        <h1>Editor mode</h1>
+        <div class="box2"></div>
+    </div>
 
-    <nav>
-        <div class="infoText">
-            <h1>Editor mode</h1>
-        </div>
+    <div class="logo">
+        <img alt="" src="slike/logo/isrednja-logo.png">
+    </div>
 
-        <div class="logo">
-            <img src="/slike/logo/isrednja-logo.png" alt="">
-        </div>
+    <div class="opcije hide">
+        <ul>
+            <li><a id="dodajPitanje">Dodaj pitanje</a></li>
+            <li><a href="/">Poništi</a></li>
+            <li><a class="active" id="spremi">Spremi</a></li>
+        </ul>
+    </div>
+
+</nav>
+<div id="box">
+
+</div>
 
 
-    </nav>
-
-
-
-
+<script src="scripts/editor_client.js"></script>
 </body>
-
 </html>
