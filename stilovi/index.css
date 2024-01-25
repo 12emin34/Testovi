@@ -4,6 +4,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
+::selection {
+    color: #fff;
+    background: #e3ae00;
+  }
+
 .content {
     height: 83vh;
     width: 100%;
@@ -15,42 +20,40 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: center;
+    margin-left: 10vw;
     text-align: left;
 
-}
-
-.content-text h3 {
-    margin-bottom: 50px;
 }
 
 .content-slika {
     grid-row-end: span 2;
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
+
 }
 
 .content-slika img {
-    width: 750px;
-    height: 500px;
+    width: 650px;
+    height: 450px;
+    margin-right: 10vw;
 }
 
 .content-button {
     display: flex;
-    justify-content: center;
 
 }
 
 .content-button button {
-    height: 100%;
-    width: 55%;
+    height: 23%;
+    width: 30%;
     outline: 0;
     border: none;
     font-size: large;
     background-color: #1c3d52;
     box-shadow: 15px 15px 15px rgba(130, 143, 151, 0.4);
-
+    margin-left: 10vw;
+    margin-top: 5vh;
     border-bottom-left-radius: 40px;
     border-top-right-radius: 40px;
     color: #e3ae00;

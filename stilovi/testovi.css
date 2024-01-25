@@ -4,6 +4,12 @@
     font-family: 'Poppins', sans-serif;
 }
 
+::selection {
+    color: #fff;
+    background: #e3ae00;
+  }
+
+
 #box {
     width: 100%;
     height: 100%;
