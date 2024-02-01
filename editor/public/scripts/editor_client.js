@@ -1,6 +1,7 @@
 let brojPitanja = 1
 let glavniBox = document.getElementById("box")
 let test = {}
+let counterZaNoviOdgovor = 1
 
 class Test {
     #ime = ""
@@ -242,6 +243,16 @@ function novoPitanje(pitanje) {
     for (const [key, value] of pitanje.odgovori) {
         noviOdgovor(value, pitanje, key, divOdgovori);
     }
+
+
+    let addOdgovorButton = document.createElement("button")
+    addOdgovorButton.innerText = "+"
+    addOdgovorButton.onclick = function(ev){
+        
+        pitanje.odgovori.set("novi odgovor" + counterZaNoviOdgovor, false)
+        counterZaNoviOdgovor++
+    }
+
 
     let deleteButtonPitanjeDiv = document.createElement("div")
     let deleteButtonPitanje = document.createElement("button")
