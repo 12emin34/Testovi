@@ -247,10 +247,15 @@ function novoPitanje(pitanje) {
 
     let addOdgovorButton = document.createElement("button")
     addOdgovorButton.innerText = "+"
+    divOdgovori.appendChild(addOdgovorButton)
     addOdgovorButton.onclick = function(ev){
-        
-        pitanje.odgovori.set("novi odgovor" + counterZaNoviOdgovor, false)
+        let noviOdg = "novi odgovor" + counterZaNoviOdgovor
+        let noviValue = false
+
+        pitanje.odgovori.set(noviOdg, noviValue)
         counterZaNoviOdgovor++
+
+        noviOdgovor(noviValue, pitanje, noviOdg, divOdgovori)
     }
 
 
