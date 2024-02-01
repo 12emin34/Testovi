@@ -129,6 +129,49 @@ class Pitanje {
     }
 }
 
+function noviOdgovor(checked, pitanje, keyOdgovora, divOdgovori) {
+    let odabraniOdgovor = document.createElement("input")
+    odabraniOdgovor.type = "checkbox"
+    odabraniOdgovor.checked = checked
+    odabraniOdgovor.onclick = function () {
+        pitanje.odgovori.set(keyOdgovora, !checked)
+    }
+
+    let odgovor = document.createElement("label")
+    odgovor.appendChild(odabraniOdgovor)
+    let span = document.createElement("span")
+    span.innerText = " " + keyOdgovora
+    odgovor.appendChild(span)
+    // odgovor.insertAdjacentText("beforeend", " " + keyOdgovora)
+
+    let brOdgovori = document.createElement("br")
+
+    span.onclick = function (ev) {
+        ev.preventDefault()
+        let noviSadrzaj = window.prompt("Unesi novi tekst za odgovor", span.innerText.trim())
+        if (noviSadrzaj.trim().length === 0) {
+            span.innerText = keyOdgovora
+        } else {
+            pitanje.odgovori.delete(keyOdgovora)
+            pitanje.odgovori.set(noviSadrzaj.trim(), odabraniOdgovor.checked)
+            span.innerText = " " + noviSadrzaj.trim()
+        }
+    }
+
+    let odgDelButton = document.createElement("button")
+    odgDelButton.innerText = "-"
+    odgovor.appendChild(odgDelButton)
+
+    odgDelButton.onclick = function (ev) {
+        pitanje.odgovori.delete(keyOdgovora)
+        odgovor.remove()
+        divOdgovori.querySelector("br").remove()
+    }
+
+    divOdgovori.appendChild(odgovor)
+    divOdgovori.appendChild(brOdgovori)
+}
+
 /**
  * Funkcija koja se koristi za prikazivanje novog pitanja u html dokumentu
  * @param pitanje
@@ -197,62 +240,9 @@ function novoPitanje(pitanje) {
     divPitanjeIOdg.appendChild(divOdgovori)
 
     for (const [key, value] of pitanje.odgovori) {
-        let odabraniOdgovor = document.createElement("input")
-        odabraniOdgovor.type = "checkbox"
-        odabraniOdgovor.checked = value
-        odabraniOdgovor.onclick = function () {
-            pitanje.odgovori.set(key, !value)
-        }
-
-        let odgovor = document.createElement("label")
-        odgovor.appendChild(odabraniOdgovor)
-        let span = document.createElement("span")
-        span.innerText = " " + key
-        odgovor.appendChild(span)
-        // odgovor.insertAdjacentText("beforeend", " " + key)
-
-        let brOdgovori = document.createElement("br")
-
-        span.onclick = function (ev) {
-            ev.preventDefault()
-            let noviSadrzaj = window.prompt("Unesi novi tekst za odgovor", span.innerText.trim())
-            if (noviSadrzaj.trim().length === 0) {
-                span.innerText = key
-            } else {
-                pitanje.odgovori.delete(key)
-                pitanje.odgovori.set(noviSadrzaj.trim(), odabraniOdgovor.checked)
-                span.innerText = " " + noviSadrzaj.trim()
-            }
-        }
-
-        let odgDelButton = document.createElement("button")
-        odgDelButton.innerText = "-"
-        odgovor.appendChild(odgDelButton)
-
-        odgDelButton.onclick = function (ev) {
-            pitanje.odgovori.delete(key)
-            odgovor.remove()
-            divOdgovori.querySelector("br").remove()
-        }
-
-        // span.addEventListener("click", function(){
-        //     let state = odabraniOdgovor.checked
-        //     let noviSadrzaj = window.prompt("Unesi novi tekst za odgovor", span.innerText)
-        //     if (noviSadrzaj.trim().length === 0) {
-        //         span.innerText = key
-        //     } else {
-        //         pitanje.odgovori.delete(key)
-        //         pitanje.odgovori.set(noviSadrzaj.trim(), state)
-        //         span.innerText = " " + noviSadrzaj.trim()
-        //     }
-        //     odabraniOdgovor.checked = state
-        // });
-
-
-
-        divOdgovori.appendChild(odgovor)
-        divOdgovori.appendChild(brOdgovori)
+        noviOdgovor(value, pitanje, key, divOdgovori);
     }
+
     let deleteButtonPitanjeDiv = document.createElement("div")
     let deleteButtonPitanje = document.createElement("button")
 
