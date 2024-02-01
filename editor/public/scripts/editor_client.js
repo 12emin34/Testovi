@@ -165,8 +165,8 @@ function noviOdgovor(checked, pitanje, keyOdgovora, divOdgovori) {
 
     odgDelButton.onclick = function (ev) {
         pitanje.odgovori.delete(keyOdgovora)
+        odgovor.nextElementSibling.remove()
         odgovor.remove()
-        divOdgovori.querySelector("br").remove()
     }
 
     divOdgovori.appendChild(odgovor)
@@ -245,20 +245,6 @@ function novoPitanje(pitanje) {
     }
 
 
-    let addOdgovorButton = document.createElement("button")
-    addOdgovorButton.innerText = "+"
-    divOdgovori.appendChild(addOdgovorButton)
-    addOdgovorButton.onclick = function(ev){
-        let noviOdg = "novi odgovor" + counterZaNoviOdgovor
-        let noviValue = false
-
-        pitanje.odgovori.set(noviOdg, noviValue)
-        counterZaNoviOdgovor++
-
-        noviOdgovor(noviValue, pitanje, noviOdg, divOdgovori)
-    }
-
-
     let deleteButtonPitanjeDiv = document.createElement("div")
     let deleteButtonPitanje = document.createElement("button")
 
@@ -272,7 +258,20 @@ function novoPitanje(pitanje) {
         brojPitanja--
     })
 
-    divOdgovori.appendChild(deleteButtonPitanjeDiv)
+    let addOdgovorButton = document.createElement("button")
+    addOdgovorButton.innerText = "+"
+    divPitanjeIOdg.appendChild(addOdgovorButton)
+    addOdgovorButton.onclick = function(ev){
+        let noviOdg = "novi odgovor" + counterZaNoviOdgovor
+        let noviValue = false
+
+        pitanje.odgovori.set(noviOdg, noviValue)
+        counterZaNoviOdgovor++
+
+        noviOdgovor(noviValue, pitanje, noviOdg, divOdgovori)
+    }
+
+    divPitanjeIOdg.appendChild(deleteButtonPitanjeDiv)
 }
 
 /**
