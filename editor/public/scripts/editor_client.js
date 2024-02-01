@@ -1,5 +1,6 @@
 let brojPitanja = 1
 let glavniBox = document.getElementById("box")
+let test = {}
 
 class Test {
     #ime = ""
@@ -19,6 +20,10 @@ class Test {
 
     get pitanja() {
         return this.#pitanja;
+    }
+
+    set pitanja(value) {
+        this.#pitanja = value;
     }
 
     static fromJSON(json) {
@@ -220,6 +225,16 @@ function novoPitanje(pitanje) {
             }
         }
 
+        let odgDelButton = document.createElement("button")
+        odgDelButton.innerText = "-"
+        odgovor.appendChild(odgDelButton)
+
+        odgDelButton.onclick = function (ev) {
+            pitanje.odgovori.delete(key)
+            odgovor.remove()
+            divOdgovori.querySelector("br").remove()
+        }
+
         // span.addEventListener("click", function(){
         //     let state = odabraniOdgovor.checked
         //     let noviSadrzaj = window.prompt("Unesi novi tekst za odgovor", span.innerText)
@@ -232,9 +247,26 @@ function novoPitanje(pitanje) {
         //     }
         //     odabraniOdgovor.checked = state
         // });
+
+
+
         divOdgovori.appendChild(odgovor)
         divOdgovori.appendChild(brOdgovori)
     }
+    let deleteButtonPitanjeDiv = document.createElement("div")
+    let deleteButtonPitanje = document.createElement("button")
+
+    deleteButtonPitanjeDiv.appendChild(deleteButtonPitanje)
+    deleteButtonPitanje.classList.add("obrisiPitanje")
+    deleteButtonPitanje.innerText = "X"
+
+    deleteButtonPitanje.addEventListener("click", function (ev) {
+        test.pitanja = test.pitanja.filter((p) => p.pitanje !== pitanje.pitanje)
+        divPitanjeIOdg.remove()
+        brojPitanja--
+    })
+
+    divOdgovori.appendChild(deleteButtonPitanjeDiv)
 }
 
 /**
@@ -267,11 +299,21 @@ function provjeriOdgovore(pitanja) {
     return rezultat
 }
 
+async function postJsonData(endpoint, jsonObject) {
+    const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(jsonObject)
+    });
+
+    const actualResponse = await response.json();
+}
+
 function testRender(url) {
     fetch(url)
         .then(response => response.json())
         .then(jsonData => {
-            let test = Test.fromJSON(jsonData)
+            test = Test.fromJSON(jsonData)
 
             for (let pitanje of test.pitanja) {
                 novoPitanje(pitanje)
@@ -283,22 +325,32 @@ function testRender(url) {
                 test.pitanja.push(pitanje)
                 novoPitanje(pitanje)
             })
+
             let spremi = document.getElementById("spremi")
             spremi.addEventListener("click", (e) => {
-                fetch("/spremi", {
-                    method: "POST",
-                    body: JSON.stringify(test.toJSON()),
-                    headers: {
-                        "Content-type": "application/json; charset=UTF-8"
-                    }
-                });
+                test.ime = prompt("Unesi ime testa", test.ime)
+                if (test.ime === null) {
+                    return
+                }
+                console.log(JSON.stringify(test.toJSON()))
+                postJsonData("/spremi", test.toJSON())
+                    .then(r => r.json())
+                    .then(data => console.log(data))
+            })
 
+            let obrisi = document.getElementById("brisanjeTesta")
+            obrisi.addEventListener("click", (e) => {
+                let shouldDelete = confirm("Jeste li sigurni da želite obrisati ovaj test?")
+                if (shouldDelete) {
+                    postJsonData("/obrisi", JSON.stringify({
+                        ime: test.ime + ".json"
+                    })).then(r => r.json())
+                        .then(data => console.log(data))
+                }
             })
 
             let navbarOpcije = document.getElementsByClassName("opcije")[0]
             navbarOpcije.classList.remove("hide")
-
-            console.log(test.toJSON())
         })
         .catch(error => console.error('Error:', error));
 }
@@ -328,6 +380,12 @@ function testListRender() {
 }
 
 testListRender()
+
+window.onbeforeunload = function (ev) {
+    confirm("Da li želite spremiti test?")
+    ev.preventDefault();
+    ev.returnValue = '';
+}
 
 
 // let testovi = ["test1.json"]
