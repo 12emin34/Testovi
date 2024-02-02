@@ -1,9 +1,7 @@
 const express = require('express');
 const session = require('express-session');
-const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
-const {response} = require("express");
 const secret = crypto.randomBytes(64).toString('hex');
 const fs = require('node:fs');
 
