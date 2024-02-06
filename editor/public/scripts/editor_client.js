@@ -260,6 +260,7 @@ function novoPitanje(pitanje) {
 
     let addOdgovorButton = document.createElement("button")
     addOdgovorButton.innerText = "+"
+    addOdgovorButton.classList.add("dodajOdgovor")
     divPitanjeIOdg.appendChild(addOdgovorButton)
     addOdgovorButton.onclick = function(ev){
         let noviOdg = "novi odgovor" + counterZaNoviOdgovor
@@ -386,11 +387,11 @@ function testListRender() {
 
 testListRender()
 
-window.onbeforeunload = function (ev) {
-    confirm("Da li želite spremiti test?")
-    ev.preventDefault();
-    ev.returnValue = '';
-}
+// window.onbeforeunload = function (ev) {
+//     confirm("Da li želite spremiti test?")
+//     ev.preventDefault();
+//     ev.returnValue = '';
+// }
 
 
 // let testovi = ["test1.json"]
