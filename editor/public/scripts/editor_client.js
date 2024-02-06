@@ -161,6 +161,7 @@ function noviOdgovor(checked, pitanje, keyOdgovora, divOdgovori) {
 
     let odgDelButton = document.createElement("button")
     odgDelButton.innerText = "-"
+    odgDelButton.classList.add("obrisiOdgovor")
     odgovor.appendChild(odgDelButton)
 
     odgDelButton.onclick = function (ev) {
