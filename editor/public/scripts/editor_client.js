@@ -286,11 +286,12 @@ function provjeriOdgovore(pitanja) {
     let rezultat = []
     for (let i = 0; i < pitanja.length; i++) {
         let inputOdgovori = boxPitanja.item(i).getElementsByTagName("input")
-        let tacno = true
+        let tacno = true                                                                             
         for (let j = 0; j < pitanja[i].brojOdgovora(); j++) {
             let label = inputOdgovori.item(j).parentElement
             if (Array.from(pitanja[i].odgovori.values())[j] !== inputOdgovori.item(j).checked) {
                 tacno = false
+                //anita max wynn D.B.
                 if (inputOdgovori.item(j).checked) {
                     label.insertAdjacentHTML("beforeend", "<i class=\"fa-solid fa-xmark\"></i>")
                     label.classList.add("netacno")
