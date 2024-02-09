@@ -1,0 +1,73 @@
+HTML 
+    <div class="box">
+        <div class="odabirKategorija">
+            <h2>Odaberi kategoriju!</h2>
+
+            <button class="active">A kategorija</button>
+            <button class="kategorijaB">B kategorija</button>
+            <button class="kategorijaC">C kategorija</button>
+
+        </div>
+
+        <div class="pitanjaKategorija">
+
+        </div>
+    </div>
+
+
+
+--------------------------------------------
+CSS
+
+.box {
+    width: 100%;
+    height: 87vh;
+    background-color: red;
+    display: flex;
+    flex-direction: row;
+}
+
+.odabirKategorija{
+    width: 20%;
+    height: 100%;
+    background-color: blue;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pitanjaKategorija{
+    width: 80%;
+    height: 100%;
+    background-color: blueviolet;
+}
+
+.odabirKategorija button{
+    width: 80%;
+    height: 10%;
+    background-color:#1c3d52;
+    outline: none;
+    border: 0;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    transition: 0.3s;
+    color:#e3ae00;
+    font-weight: bold;
+}
+
+.odabirKategorija button:hover{
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    background-color:#e3ae00;
+    transition: 0.3s;
+    color:#1c3d52;
+    font-weight: bold;
+}
+
+.odabirKategorija button.active{
+    background-color: #e3ae00;
+    color: #1c3d52;
+}
