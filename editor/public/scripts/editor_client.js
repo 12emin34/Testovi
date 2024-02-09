@@ -151,7 +151,7 @@ function noviOdgovor(checked, pitanje, keyOdgovora, divOdgovori) {
         ev.preventDefault()
         let noviSadrzaj = window.prompt("Unesi novi tekst za odgovor", span.innerText.trim())
         if (noviSadrzaj.trim().length === 0) {
-            span.innerText = keyOdgovora
+            span.innerText = keyOdgovora.trim()
         } else {
             pitanje.odgovori.delete(keyOdgovora)
             pitanje.odgovori.set(noviSadrzaj.trim(), odabraniOdgovor.checked)
@@ -345,12 +345,14 @@ function testRender(url) {
                 novoPitanje(pitanje)
             }
 
+            let navbarOpcije = document.getElementById("testNavbar")
+            navbarOpcije.classList.remove("hide")
+
+            let navbarOpcijeLista = document.getElementById("listNavbar")
+            navbarOpcijeLista.classList.add("hide")
+
             let spremi = document.getElementById("spremi")
             spremi.addEventListener("click", (e) => {
-                test.ime = prompt("Unesi ime testa", test.ime)
-                if (test.ime === null) {
-                    return
-                }
                 console.log(JSON.stringify(test.toJSON()))
                 postJsonData("/spremi", test.toJSON())
                     .then(r => r.json())
@@ -367,9 +369,6 @@ function testRender(url) {
                         .then(data => console.log(data))
                 }
             })
-
-            let navbarOpcije = document.getElementsByClassName("opcije")[0]
-            navbarOpcije.classList.remove("hide")
 
             let buttonNovoPitanje = document.createElement("button")
             buttonNovoPitanje.className = "provjeriButton"
@@ -391,9 +390,29 @@ function testRender(url) {
 }
 
 function testListRender() {
+    glavniBox.innerHTML = ""
     let text = document.createElement("h1")
     text.innerText = "Izaberi koji test želiš urediti"
     glavniBox.appendChild(text)
+    let noviTest = document.getElementById("noviTest")
+    noviTest.onclick = function (ev) {
+        let test = new Test()
+        test.ime = prompt("Unesi ime testa", test.ime)
+
+        if (test.ime === null) {
+            return
+        }
+
+        let pitanje = new Pitanje("Novo pitanje", [["odgovor 1", false], ["odgovor 2", false]])
+        test.pitanja.push(pitanje)
+
+        console.log(JSON.stringify(test.toJSON()))
+        postJsonData("/spremi", test.toJSON())
+            .then(r => r.json())
+            .then(data => console.log(data))
+
+        testListRender()
+    }
     fetch('test_data/index.json')
         .then(response => response.json())
         .then(jsonData => {

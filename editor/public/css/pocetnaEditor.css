@@ -30,7 +30,7 @@ nav {
 }
 
 .hide {
-    visibility: hidden;
+    display: none !important;
 }
 
 .opcije {
@@ -210,7 +210,7 @@ nav {
 
 .pitanje {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
 }
 
