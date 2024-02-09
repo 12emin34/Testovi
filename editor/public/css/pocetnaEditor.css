@@ -47,7 +47,7 @@ nav {
 
 .opcije li {
     display: inline;
-    padding: 0px 20px 0px 20px;
+    padding: 0 20px 0 20px;
 }
 
 .opcije a {
@@ -74,17 +74,13 @@ nav {
     border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
     transition: 0.3s;
-    box-shadow: 15x 15px 15px rgba(130, 143, 151, 0.4);
-
+    box-shadow: 15px 15px 15px rgba(130, 143, 151, 0.4);
 }
 
 .opcije a.active:hover {
     background-color: #e3ae00;
     color: #1c3d52;
-    border-top-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-radius: 0 20px 0 20px;
     transition: 0.3s;
 }
 
@@ -118,15 +114,14 @@ nav {
 } 
 
 .box-pitanje {
-    height: auto;
-    min-height: 220px;
     width: 45%;
     background-color: #fff;
     border-radius: 20px;
     box-shadow: 2px 2px 2px 1px rgba(28, 61, 82, 0.3);
     margin-top: 50px;
+    padding: 20px 30px 30px 0;
     display: grid;
-    grid-template-rows: 50% 50%;
+    grid-template-rows: 100px 50%;
     position: relative;
 }
 
@@ -146,13 +141,13 @@ nav {
 
 .obrisiPitanje {
     padding: 10px;
-    background-color: red;
+    background-color: #1c3d52;
     color: #fff;
-    border: 0px;
+    border: 0;
     position: absolute;
-    top: 0px;
-    right: 0px;
-    border-radius: 0px 20px 0px 10px;
+    top: 0;
+    right: 0;
+    border-radius: 0 20px 0 10px;
 }
 
 .obrisiPitanje:hover {
@@ -162,13 +157,13 @@ nav {
 
 .dodajOdgovor {
     padding: 10px;
-    background-color: rgb(27, 146, 12);
+    background-color: #e3ae00;
     color: #fff;
-    border: 0px;
+    border: 0;
     position: absolute;
-    bottom: 0px;
-    right: 0px;
-    border-radius: 10px 0px 20px 0px;
+    bottom: 0;
+    right: 0;
+    border-radius: 10px 0 20px 0;
 }
 
 .dodajOdgovor:hover {
@@ -178,12 +173,12 @@ nav {
 
 
 .obrisiOdgovor {
-    padding: 0px 5px;
+    padding: 0 5px;
     margin-left: 5px;
-    background-color: red;
+    background-color: #1c3d52;
     color: #fff;
     border-radius: 20px;
-    border: 0px;
+    border: 0;
 }
 
 .broj {
@@ -215,7 +210,10 @@ nav {
 }
 
 .slika img {
-    transform: scale(0.6);
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 .odgovor input {
@@ -250,7 +248,7 @@ nav {
     background-color: #1c3d52;
     padding: 1rem 4rem;
     margin-left: 5px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 5px 15px;
     border-radius: 10px;
     margin-top: 50px;
     margin-bottom: 1px;
@@ -264,8 +262,8 @@ nav {
 .provjeriButton::after {
     content: "";
     position: absolute;
-    left: 0px;
-    top: 0px;
+    left: 0;
+    top: 0;
     height: 490%;
     width: 140%;
     background: #e3ae00;
