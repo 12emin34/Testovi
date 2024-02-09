@@ -18,8 +18,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 const dummyUser = {
-    username: 'dzaja',
-    password: 'dzaja'
+    username: 'admin',
+    password: 'admin'
 };
 
 const isAuthenticated = (req, res, next) => {

@@ -216,11 +216,15 @@ function novoPitanje(pitanje) {
         }
     });
 
+    let divSlika = document.createElement("div")
+    divSlika.className = "slika"
+    let imgSlika = document.createElement("img")
+    imgSlika.src = pitanje.slika
+    let addSlikaButton = document.createElement("button")
+    addSlikaButton.classList.add("dodajSliku")
+
     if (pitanje.slika !== "") {
-        let divSlika = document.createElement("div")
-        divSlika.className = "slika"
-        let imgSlika = document.createElement("img")
-        imgSlika.src = pitanje.slika
+        addSlikaButton.classList.add("hide")
         divSlika.appendChild(imgSlika)
         divPitanjeIOdg.appendChild(divSlika)
         imgSlika.addEventListener("click", function () {
@@ -271,6 +275,20 @@ function novoPitanje(pitanje) {
         counterZaNoviOdgovor++
 
         noviOdgovor(noviValue, pitanje, noviOdg, divOdgovori)
+    }
+
+    addSlikaButton.innerText = "slika"
+    addSlikaButton.classList.add("dodajSliku")
+    divPitanjeIOdg.appendChild(addSlikaButton)
+    addSlikaButton.onclick = function (ev) {
+        let noviSadrzaj = window.prompt("Unesi novu sliku", pitanje.slika)
+        if (noviSadrzaj.trim().length === 0) {
+            imgSlika.innerText = pitanje.slika
+        } else {
+            pitanje.slika = noviSadrzaj
+            imgSlika.src = noviSadrzaj
+        }
+        addSlikaButton.classList.add("hide")
     }
 
     divPitanjeIOdg.appendChild(deleteButtonPitanjeDiv)
@@ -327,13 +345,6 @@ function testRender(url) {
                 novoPitanje(pitanje)
             }
 
-            let dodajPitanje = document.getElementById("dodajPitanje")
-            dodajPitanje.addEventListener("click", (e) => {
-                let pitanje = new Pitanje("Novo pitanje", [["odgovor 1", false], ["odgovor 2", false]])
-                test.pitanja.push(pitanje)
-                novoPitanje(pitanje)
-            })
-
             let spremi = document.getElementById("spremi")
             spremi.addEventListener("click", (e) => {
                 test.ime = prompt("Unesi ime testa", test.ime)
@@ -359,6 +370,22 @@ function testRender(url) {
 
             let navbarOpcije = document.getElementsByClassName("opcije")[0]
             navbarOpcije.classList.remove("hide")
+
+            let buttonNovoPitanje = document.createElement("button")
+            buttonNovoPitanje.className = "provjeriButton"
+            let buttonNovoPitanjeSpan = document.createElement("span")
+            buttonNovoPitanjeSpan.innerText = "Dodaj pitanje"
+            buttonNovoPitanje.appendChild(buttonNovoPitanjeSpan)
+            buttonNovoPitanje.addEventListener("click", (e) => {
+                let pitanje = new Pitanje("Novo pitanje", [["odgovor 1", false], ["odgovor 2", false]])
+                test.pitanja.push(pitanje)
+                novoPitanje(pitanje)
+
+                buttonNovoPitanje.remove()
+                glavniBox.appendChild(buttonNovoPitanje)
+            })
+            glavniBox.appendChild(buttonNovoPitanje)
+
         })
         .catch(error => console.error('Error:', error));
 }

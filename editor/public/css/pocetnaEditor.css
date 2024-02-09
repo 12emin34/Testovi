@@ -171,6 +171,22 @@ nav {
     cursor: pointer;
 }
 
+.dodajSliku {
+    padding: 10px;
+    background-color: #e3ae00;
+    color: #fff;
+    border: 0;
+    position: absolute;
+    bottom: 0;
+    right: 30px;
+    border-radius: 20px 0 10px 0;
+}
+
+.dodajSliku:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
 
 .obrisiOdgovor {
     padding: 0 5px;
