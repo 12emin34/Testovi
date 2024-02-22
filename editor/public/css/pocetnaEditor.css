@@ -65,7 +65,7 @@ nav {
     transition: 0.2s;
     background-color: #1c3d52;
     box-shadow: 10px 10px 10px rgba(130, 143, 151, 0.4);
-
+    cursor: pointer;
 }
 
 .opcije a.active {
