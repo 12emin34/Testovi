@@ -21,17 +21,29 @@ class Test {
         return this.#pitanja;
     }
 
-    toJSON() {
-        return {
-            ime: this.#ime,
-            pitanja: this.#pitanja.map(pitanje => pitanje.toJSON())
-        };
+    set pitanja(value) {
+        this.#pitanja = value;
+    }
+
+    moguciBodovi() {
+        let temp = 0;
+        for (let pitanje of this.#pitanja) {
+            temp += pitanje.bodovi;
+        }
+        return temp;
     }
 
     static fromJSON(json) {
         const test = new Test(json.ime);
         test.#pitanja = json.pitanja.map(Pitanje.fromJSON);
         return test;
+    }
+
+    toJSON() {
+        return {
+            ime: this.#ime,
+            pitanja: this.#pitanja.map(pitanje => pitanje.toJSON())
+        };
     }
 }
 
@@ -54,10 +66,12 @@ class Pitanje {
      */
     #odgovori = new Map();
 
-    #slika = ""
+    #slika = "";
+
+    #bodovi = 0;
 
     constructor(pitanje, nizOdgovora) {
-        this.#pitanje = pitanje 
+        this.#pitanje = pitanje
         this.#odgovori = new Map(nizOdgovora)
     }
 
@@ -70,14 +84,6 @@ class Pitanje {
     }
 
     /**
-     * Vraća tekst pitanja
-     * @returns {string}
-     */
-    get pitanje() {
-        return this.#pitanje
-    }
-
-    /**
      * Postavlja odgovore za pitanje
      * @param nizOdgovora
      */
@@ -86,10 +92,18 @@ class Pitanje {
     }
 
     /**
+     * Vraća tekst pitanja
+     * @returns {string}
+     */
+    get pitanje() {
+        return this.#pitanje
+    }
+
+    /**
      * Postavlja tekst pitanja
      * @param pitanje
      */
-    set pitanje(pitanje){
+    set pitanje(pitanje) {
         this.#pitanje = pitanje
     }
 
@@ -101,11 +115,26 @@ class Pitanje {
         this.#slika = slika;
     }
 
+    get bodovi() {
+        return this.#bodovi;
+    }
+
+    set bodovi(value) {
+        this.#bodovi = value;
+    }
+
+    static fromJSON(json) {
+        const pitanje = new Pitanje(json.pitanje, json.odgovori);
+        pitanje.#slika = json.slika;
+        pitanje.#bodovi = json.bodovi;
+        return pitanje;
+    }
+
     /**
      * Vraća broj odgovora u pitanju
      * @returns {number}
      */
-    brojOdgovora(){
+    brojOdgovora() {
         return this.#odgovori.size
     }
 
@@ -113,14 +142,9 @@ class Pitanje {
         return {
             pitanje: this.#pitanje,
             odgovori: Array.from(this.#odgovori),
-            slika: this.#slika
+            slika: this.#slika,
+            bodovi: this.#bodovi,
         };
-    }
-
-    static fromJSON(json) {
-        const pitanje = new Pitanje(json.pitanje, json.odgovori);
-        pitanje.#slika = json.slika;
-        return pitanje;
     }
 }
 
@@ -223,6 +247,7 @@ function testRender(url) {
         .then(response => response.json())
         .then(jsonData => {
             let test = Test.fromJSON(jsonData)
+            let ukupniBodovi = 0;
 
             for (let pitanje of test.pitanja) {
                 novoPitanje(pitanje)
@@ -235,7 +260,25 @@ function testRender(url) {
             dugmeZaProvjeru.appendChild(dugmeZaProvjeruSpan)
             glavniBox.appendChild(dugmeZaProvjeru)
             dugmeZaProvjeru.addEventListener("click", (e) => {
-                provjeriOdgovore(test.pitanja)
+                dugmeZaProvjeru.remove();
+                let rezultati = provjeriOdgovore(test.pitanja)
+                for (let i = 0; i < test.pitanja.length; i++) {
+                    if (rezultati[i]) {
+                        ukupniBodovi += test.pitanja[i].bodovi;
+                    }
+                }
+                let rezText = document.createElement("p");
+                rezText.innerText = "Osvojili ste " + ukupniBodovi + " bodova (" + (ukupniBodovi * 100) / test.moguciBodovi() + "%) od mogućih " + test.moguciBodovi();
+                let rezText2 = document.createElement("p");
+                if (ukupniBodovi >= (90 / 100) * test.moguciBodovi()) {
+                    rezText2.innerText = "Položili ste ispit!";
+                } else {
+                    rezText2.innerText = "Pali ste ispit!";
+                }
+
+                glavniBox.appendChild(rezText);
+                glavniBox.appendChild(rezText2);
+
             })
 
             console.log(test.toJSON())

@@ -27,6 +27,14 @@ class Test {
         this.#pitanja = value;
     }
 
+    moguciBodovi() {
+        let temp = 0;
+        for (let pitanje of this.#pitanja) {
+            temp += pitanje.bodovi;
+        }
+        return temp;
+    }
+
     static fromJSON(json) {
         const test = new Test(json.ime);
         test.#pitanja = json.pitanja.map(Pitanje.fromJSON);
@@ -60,7 +68,9 @@ class Pitanje {
      */
     #odgovori = new Map();
 
-    #slika = ""
+    #slika = "";
+
+    #bodovi = 0;
 
     constructor(pitanje, nizOdgovora) {
         this.#pitanje = pitanje
@@ -107,9 +117,18 @@ class Pitanje {
         this.#slika = slika;
     }
 
+    get bodovi() {
+        return this.#bodovi;
+    }
+
+    set bodovi(value) {
+        this.#bodovi = value;
+    }
+
     static fromJSON(json) {
         const pitanje = new Pitanje(json.pitanje, json.odgovori);
         pitanje.#slika = json.slika;
+        pitanje.#bodovi = json.bodovi;
         return pitanje;
     }
 
@@ -125,7 +144,8 @@ class Pitanje {
         return {
             pitanje: this.#pitanje,
             odgovori: Array.from(this.#odgovori),
-            slika: this.#slika
+            slika: this.#slika,
+            bodovi: this.#bodovi,
         };
     }
 }
@@ -281,15 +301,57 @@ function novoPitanje(pitanje) {
     addSlikaButton.classList.add("dodajSliku")
     divPitanjeIOdg.appendChild(addSlikaButton)
     addSlikaButton.onclick = function (ev) {
-        let noviSadrzaj = window.prompt("Unesi novu sliku", pitanje.slika)
-        if (noviSadrzaj.trim().length === 0) {
-            imgSlika.innerText = pitanje.slika
-        } else {
-            pitanje.slika = noviSadrzaj
-            imgSlika.src = noviSadrzaj
-        }
+        addSlikaButton.classList.add("hide")
+        divSlika.appendChild(imgSlika)
+        divPitanjeIOdg.appendChild(divSlika)
+        imgSlika.addEventListener("click", function () {
+            let noviSadrzaj = window.prompt("Unesi novu sliku", pitanje.slika)
+            if (noviSadrzaj.trim().length === 0) {
+                imgSlika.innerText = pitanje.slika
+            } else {
+                pitanje.slika = noviSadrzaj
+                imgSlika.src = noviSadrzaj
+            }
+        })
         addSlikaButton.classList.add("hide")
     }
+
+    let typeChangeButton = document.createElement("button")
+    typeChangeButton.innerText = "tip"
+    typeChangeButton.classList.add("promijeniTip")
+    divPitanjeIOdg.appendChild(typeChangeButton)
+    typeChangeButton.onclick = function (ev) {
+        while (true) {
+            let tip = "";
+            if (pitanje.bodovi !== 0) {
+                if (pitanje.bodovi === 2) {
+                    tip = "teorija";
+                } else if (pitanje.bodovi === 3) {
+                    tip = "znakovi";
+                } else if (pitanje.bodovi === 5) {
+                    tip = "raskrnice";
+                }
+            }
+            let noviSadrzaj = window.prompt("Unesi tip pitanja (teorija, znakovi, raskrnice)", tip)
+            if (noviSadrzaj.trim().length > 0) {
+                if (noviSadrzaj === "teorija") {
+                    pitanje.bodovi = 2;
+                    addSlikaButton.hidden = true;
+                } else if (noviSadrzaj === "znakovi") {
+                    pitanje.bodovi = 3;
+                    addSlikaButton.hidden = false;
+                } else if (noviSadrzaj === "raskrsnice") {
+                    pitanje.bodovi = 5;
+                    addSlikaButton.hidden = false;
+                } else {
+                    continue;
+                }
+            }
+            break;
+        }
+        console.log(pitanje.bodovi);
+    }
+
 
     divPitanjeIOdg.appendChild(deleteButtonPitanjeDiv)
 }
@@ -357,6 +419,7 @@ function testRender(url) {
                 postJsonData("/spremi", test.toJSON())
                     .then(r => r.json())
                     .then(data => console.log(data))
+                alert("Promjene su spremljene!");
             })
 
             let obrisi = document.getElementById("brisanjeTesta")

@@ -187,6 +187,25 @@ nav {
     cursor: pointer;
 }
 
+.promijeniTip {
+    padding: 10px;
+    background-color: #e3ae00;
+    color: #fff;
+    border: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 10px;
+}
+
+.promijeniTip:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
 
 .obrisiOdgovor {
     padding: 0 5px;
@@ -218,6 +237,12 @@ nav {
     grid-column-end: span 2;
 }
 
+.odgovor label {
+    padding-left: 80px;
+    display: inline-block;
+    margin: 5px 0px;
+}
+
 .slika {
     grid-row-end: span 2;
     display: flex;
@@ -233,7 +258,7 @@ nav {
 }
 
 .odgovor input {
-    margin-left: 70px;
+    /*   margin-left: 70px;*/
 }
 
 .fa-xmark {
