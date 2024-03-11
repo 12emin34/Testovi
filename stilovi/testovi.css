@@ -263,3 +263,45 @@
     cursor: pointer;
 }
 
+.navbar-list i{
+    display: none;
+    color: #000;
+}
+
+
+
+@media only screen and (max-width: 930px) {
+  
+    .pitanja button {
+        width: 25%;
+    }
+
+
+    
+  }
+
+
+
+  @media only screen and (max-width: 700px) {
+  
+    .pitanja button {
+        width: 33%;
+    }
+
+
+    
+  }
+
+
+  @media only screen and (max-width: 540px) {
+  
+    .pitanja button {
+        width: 50%;
+    }
+
+
+    
+  }
+
+
+ 
