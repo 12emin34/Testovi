@@ -1,10 +1,12 @@
 let brojPitanja = 1
 let glavniBox = document.getElementById("box")
 let pitanjaContainer = document.getElementById("pitanjaContainer")
+let kategorija = "b"
 
 class Test {
     #ime = ""
     #pitanja = [];
+    #kategorija = ""
 
     constructor(ime) {
         this.#ime = ime;
@@ -26,6 +28,21 @@ class Test {
         this.#pitanja = value;
     }
 
+    get kategorija() {
+        return this.#kategorija;
+    }
+
+    set kategorija(value) {
+        this.#kategorija = value;
+    }
+
+    static fromJSON(json) {
+        const test = new Test(json.ime);
+        test.#pitanja = json.pitanja.map(Pitanje.fromJSON);
+        test.#kategorija = json.kategorija;
+        return test;
+    }
+
     moguciBodovi() {
         let temp = 0;
         for (let pitanje of this.#pitanja) {
@@ -34,16 +51,11 @@ class Test {
         return temp;
     }
 
-    static fromJSON(json) {
-        const test = new Test(json.ime);
-        test.#pitanja = json.pitanja.map(Pitanje.fromJSON);
-        return test;
-    }
-
     toJSON() {
         return {
             ime: this.#ime,
-            pitanja: this.#pitanja.map(pitanje => pitanje.toJSON())
+            pitanja: this.#pitanja.map(pitanje => pitanje.toJSON()),
+            kategorija: this.#kategorija,
         };
     }
 }
@@ -69,7 +81,7 @@ class Pitanje {
 
     #slika = "";
 
-    #bodovi = 0;
+    #bodovi = 2;
 
     constructor(pitanje, nizOdgovora) {
         this.#pitanje = pitanje
@@ -239,6 +251,9 @@ function provjeriOdgovore(pitanja) {
             }
         }
         rezultat.push(tacno)
+        if (tacno) {
+            boxPitanja.item(i).style.display = "none"
+        }
     }
     return rezultat
 }
@@ -289,7 +304,8 @@ function testRender(url) {
 }
 
 function testListRender() {
-    fetch('test_data/index.json')
+    glavniBox.innerHTML = ""
+    fetch(`test_data/${kategorija}/index.json`)
         .then(response => response.json())
         .then(jsonData => {
             let testovi = jsonData.testovi
@@ -297,14 +313,25 @@ function testListRender() {
                 let dugmeZaTest = document.createElement("button")
                 dugmeZaTest.innerText = test.replace(".json", "")
                 dugmeZaTest.addEventListener("click", (e) => {
-                    glavniBox.innerText = ""
+                    glavniBox.innerHTML = ""
                     glavniBox.style.display = "none"
-                    testRender('test_data/' + test)
+                    testRender(`test_data/${kategorija}/` + test)
                 })
                 glavniBox.appendChild(dugmeZaTest)
             }
         })
         .catch(error => console.error('Error:', error));
+}
+
+function promijeniKategoriju(novaKategorija) {
+    kategorija = novaKategorija
+    for (let element of document.getElementsByClassName("kategorija")) {
+        element.classList.remove("selected")
+    }
+    let selected = document.getElementById(novaKategorija)
+    selected.classList.add("selected")
+
+    testListRender()
 }
 
 testListRender()

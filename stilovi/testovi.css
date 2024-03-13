@@ -231,6 +231,11 @@
     box-shadow: 15px 15px 15px rgba(130, 143, 151, 0.4);
 }
 
+.kategorija button.selected {
+    background-color: white;
+    color: #1c3d52;
+}
+
 .kategorija button:hover{
     border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -304,4 +309,3 @@
   }
 
 
- 

@@ -32,11 +32,14 @@ const isAuthenticated = (req, res, next) => {
 
 app.post('/spremi', express.raw({type: '*/*'}), isAuthenticated, (req, res) => {
     let ime = JSON.parse(req.body.toString()).ime
-    fs.writeFileSync("public/test_data/" + ime + ".json", req.body.toString(), err => {
+    let kategorija = JSON.parse(req.body.toString()).kategorija
+
+    fs.writeFileSync(`public/test_data/${kategorija}/` + ime + ".json", req.body.toString(), err => {
         console.log(err)
     })
 
-    let index = fs.readFileSync("public/test_data/index.json")
+    let path = `public/test_data/${kategorija}/index.json`;
+    let index = fs.readFileSync(path)
     let indexObj = JSON.parse(index);
 
     if (!indexObj.testovi.includes(ime + ".json", 0)) {
@@ -45,7 +48,7 @@ app.post('/spremi', express.raw({type: '*/*'}), isAuthenticated, (req, res) => {
         console.log("fajl postoji")
     }
 
-    fs.writeFileSync("public/test_data/index.json", JSON.stringify(indexObj), err => {
+    fs.writeFileSync(`public/test_data/${kategorija}/index.json`, JSON.stringify(indexObj), err => {
         console.log(err)
     })
 
@@ -56,17 +59,18 @@ app.post('/spremi', express.raw({type: '*/*'}), isAuthenticated, (req, res) => {
 
 app.post('/obrisi', express.raw({type: '*/*'}), isAuthenticated, (req, res) => {
     let imeFajla = JSON.parse(req.body.toString()).ime
+    let kategorija = JSON.parse(req.body.toString()).kategorija
 
     console.log(JSON.parse(req.body.toString()).ime)
 
-    fs.rmSync("public/test_data/" + imeFajla)
+    fs.rmSync(`public/test_data/${kategorija}/` + imeFajla)
 
-    let index = fs.readFileSync("public/test_data/index.json").toString()
+    let index = fs.readFileSync(`public/test_data/${kategorija}/index.json`).toString()
     let indexObj = JSON.parse(index);
 
     indexObj.testovi = indexObj.testovi.filter((file) => file !== imeFajla.trim())
 
-    fs.writeFileSync("public/test_data/index.json", JSON.stringify(indexObj), err => {
+    fs.writeFileSync(`public/test_data/${kategorija}/index.json`, JSON.stringify(indexObj), err => {
         console.log(err)
     })
 

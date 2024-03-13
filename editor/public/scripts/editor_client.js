@@ -1,11 +1,14 @@
 let brojPitanja = 1
 let glavniBox = document.getElementById("box")
+let pitanjaContainer = document.getElementById("pitanjaContainer")
 let test = {}
 let counterZaNoviOdgovor = 1
+let kategorija = "b"
 
 class Test {
     #ime = ""
     #pitanja = [];
+    #kategorija = ""
 
     constructor(ime) {
         this.#ime = ime;
@@ -27,9 +30,18 @@ class Test {
         this.#pitanja = value;
     }
 
+    get kategorija() {
+        return this.#kategorija;
+    }
+
+    set kategorija(value) {
+        this.#kategorija = value;
+    }
+
     static fromJSON(json) {
         const test = new Test(json.ime);
         test.#pitanja = json.pitanja.map(Pitanje.fromJSON);
+        test.#kategorija = json.kategorija;
         return test;
     }
 
@@ -44,7 +56,8 @@ class Test {
     toJSON() {
         return {
             ime: this.#ime,
-            pitanja: this.#pitanja.map(pitanje => pitanje.toJSON())
+            pitanja: this.#pitanja.map(pitanje => pitanje.toJSON()),
+            kategorija: this.#kategorija,
         };
     }
 }
@@ -70,7 +83,7 @@ class Pitanje {
 
     #slika = "";
 
-    #bodovi = 0;
+    #bodovi = 2;
 
     constructor(pitanje, nizOdgovora) {
         this.#pitanje = pitanje
@@ -199,8 +212,7 @@ function noviOdgovor(checked, pitanje, keyOdgovora, divOdgovori) {
  * @param pitanje
  */
 function novoPitanje(pitanje) {
-
-    let glavniBox = document.getElementById("box")
+    let glavniBox = document.getElementById("pitanjaContainer")
 
     let divPitanjeIOdg = document.createElement("div")
     divPitanjeIOdg.classList.add("box-pitanje")
@@ -317,40 +329,48 @@ function novoPitanje(pitanje) {
     }
 
     let typeChangeButton = document.createElement("button")
-    typeChangeButton.innerText = "tip"
-    typeChangeButton.classList.add("promijeniTip")
-    divPitanjeIOdg.appendChild(typeChangeButton)
-    typeChangeButton.onclick = function (ev) {
-        while (true) {
-            let tip = "";
-            if (pitanje.bodovi !== 0) {
-                if (pitanje.bodovi === 2) {
-                    tip = "teorija";
-                } else if (pitanje.bodovi === 3) {
-                    tip = "znakovi";
-                } else if (pitanje.bodovi === 5) {
-                    tip = "raskrnice";
-                }
-            }
-            let noviSadrzaj = window.prompt("Unesi tip pitanja (teorija, znakovi, raskrnice)", tip)
-            if (noviSadrzaj.trim().length > 0) {
-                if (noviSadrzaj === "teorija") {
-                    pitanje.bodovi = 2;
-                    addSlikaButton.hidden = true;
-                } else if (noviSadrzaj === "znakovi") {
-                    pitanje.bodovi = 3;
-                    addSlikaButton.hidden = false;
-                } else if (noviSadrzaj === "raskrsnice") {
-                    pitanje.bodovi = 5;
-                    addSlikaButton.hidden = false;
-                } else {
-                    continue;
-                }
-            }
-            break;
+    let tip = "";
+    if (pitanje.bodovi !== 0) {
+        if (pitanje.bodovi === 2) {
+            tip = "teorija";
+        } else if (pitanje.bodovi === 3) {
+            tip = "znakovi";
+        } else if (pitanje.bodovi === 5) {
+            tip = "raskrsnice";
         }
-        console.log(pitanje.bodovi);
     }
+    let typeChangeButtonText = document.createElement("span")
+    typeChangeButtonText.innerText = tip
+    typeChangeButton.classList.add("promijeniTip")
+    typeChangeButton.appendChild(typeChangeButtonText)
+
+    let dropdownContent = document.createElement("div")
+    dropdownContent.classList.add("tipDropdownContent")
+    let dropdownButtonTeorija = document.createElement("a")
+    dropdownButtonTeorija.innerText = "Teorija"
+    dropdownButtonTeorija.onclick = function (ev) {
+        pitanje.bodovi = 2
+        typeChangeButtonText.innerText = "teorija"
+    }
+    let dropdownButtonZnakovi = document.createElement("a")
+    dropdownButtonZnakovi.innerText = "Znakovi"
+    dropdownButtonZnakovi.onclick = function (ev) {
+        pitanje.bodovi = 3
+        typeChangeButtonText.innerText = "znakovi"
+    }
+    let dropdownButtonRaskrsnice = document.createElement("a")
+    dropdownButtonRaskrsnice.innerText = "Raskrsnice"
+    dropdownButtonRaskrsnice.onclick = function (ev) {
+        pitanje.bodovi = 5
+        typeChangeButtonText.innerText = "raskrsnice"
+    }
+
+    typeChangeButton.appendChild(dropdownContent)
+    dropdownContent.appendChild(dropdownButtonTeorija)
+    dropdownContent.appendChild(dropdownButtonZnakovi)
+    dropdownContent.appendChild(dropdownButtonRaskrsnice)
+
+    divPitanjeIOdg.appendChild(typeChangeButton)
 
 
     divPitanjeIOdg.appendChild(deleteButtonPitanjeDiv)
@@ -398,6 +418,9 @@ async function postJsonData(endpoint, jsonObject) {
 }
 
 function testRender(url) {
+    pitanjaContainer.style.display = "flex"
+    glavniBox.style.display = "none"
+    document.getElementsByClassName("kategorija")[0].style.display = "none";
     fetch(url)
         .then(response => response.json())
         .then(jsonData => {
@@ -445,9 +468,9 @@ function testRender(url) {
                 novoPitanje(pitanje)
 
                 buttonNovoPitanje.remove()
-                glavniBox.appendChild(buttonNovoPitanje)
+                pitanjaContainer.appendChild(buttonNovoPitanje)
             })
-            glavniBox.appendChild(buttonNovoPitanje)
+            pitanjaContainer.appendChild(buttonNovoPitanje)
 
         })
         .catch(error => console.error('Error:', error));
@@ -455,13 +478,12 @@ function testRender(url) {
 
 function testListRender() {
     glavniBox.innerHTML = ""
-    let text = document.createElement("h1")
-    text.innerText = "Izaberi koji test želiš urediti"
-    glavniBox.appendChild(text)
+    pitanjaContainer.style.display = "none"
     let noviTest = document.getElementById("noviTest")
     noviTest.onclick = function (ev) {
         let test = new Test()
         test.ime = prompt("Unesi ime testa", test.ime)
+        test.kategorija = kategorija
 
         if (test.ime === null) {
             return
@@ -477,24 +499,32 @@ function testListRender() {
 
         testListRender()
     }
-    fetch('test_data/index.json')
+    fetch(`test_data/${kategorija}/index.json`)
         .then(response => response.json())
         .then(jsonData => {
             let testovi = jsonData.testovi
             for (let test of testovi) {
                 let dugmeZaTest = document.createElement("button")
-                dugmeZaTest.className = "provjeriButton"
-                let dugmeZaTestSpan = document.createElement("span")
-                dugmeZaTestSpan.innerHTML = test.replace(".json", "")
-                dugmeZaTest.appendChild(dugmeZaTestSpan)
+                dugmeZaTest.innerText = test.replace(".json", "")
                 dugmeZaTest.addEventListener("click", (e) => {
                     glavniBox.innerText = ""
-                    testRender('test_data/' + test)
+                    testRender(`test_data/${kategorija}/` + test)
                 })
                 glavniBox.appendChild(dugmeZaTest)
             }
         })
         .catch(error => console.error('Error:', error));
+}
+
+function promijeniKategoriju(novaKategorija) {
+    kategorija = novaKategorija
+    for (let element of document.getElementsByClassName("kategorija")) {
+        element.classList.remove("selected")
+    }
+    let selected = document.getElementById(novaKategorija)
+    selected.classList.add("selected")
+
+    testListRender()
 }
 
 testListRender()
