@@ -61,7 +61,7 @@ app.post('/obrisi', express.raw({type: '*/*'}), isAuthenticated, (req, res) => {
 
     fs.rmSync("public/test_data/" + imeFajla)
 
-    let index = fs.readFileSync("public/test_data/index.json")
+    let index = fs.readFileSync("public/test_data/index.json").toString()
     let indexObj = JSON.parse(index);
 
     indexObj.testovi = indexObj.testovi.filter((file) => file !== imeFajla.trim())

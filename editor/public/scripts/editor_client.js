@@ -27,18 +27,18 @@ class Test {
         this.#pitanja = value;
     }
 
+    static fromJSON(json) {
+        const test = new Test(json.ime);
+        test.#pitanja = json.pitanja.map(Pitanje.fromJSON);
+        return test;
+    }
+
     moguciBodovi() {
         let temp = 0;
         for (let pitanje of this.#pitanja) {
             temp += pitanje.bodovi;
         }
         return temp;
-    }
-
-    static fromJSON(json) {
-        const test = new Test(json.ime);
-        test.#pitanja = json.pitanja.map(Pitanje.fromJSON);
-        return test;
     }
 
     toJSON() {
@@ -287,7 +287,7 @@ function novoPitanje(pitanje) {
     addOdgovorButton.innerText = "+"
     addOdgovorButton.classList.add("dodajOdgovor")
     divPitanjeIOdg.appendChild(addOdgovorButton)
-    addOdgovorButton.onclick = function(ev){
+    addOdgovorButton.onclick = function (ev) {
         let noviOdg = "novi odgovor" + counterZaNoviOdgovor
         let noviValue = false
 
@@ -366,7 +366,7 @@ function provjeriOdgovore(pitanja) {
     let rezultat = []
     for (let i = 0; i < pitanja.length; i++) {
         let inputOdgovori = boxPitanja.item(i).getElementsByTagName("input")
-        let tacno = true                                                                             
+        let tacno = true
         for (let j = 0; j < pitanja[i].brojOdgovora(); j++) {
             let label = inputOdgovori.item(j).parentElement
             if (Array.from(pitanja[i].odgovori.values())[j] !== inputOdgovori.item(j).checked) {
@@ -426,10 +426,11 @@ function testRender(url) {
             obrisi.addEventListener("click", (e) => {
                 let shouldDelete = confirm("Jeste li sigurni da želite obrisati ovaj test?")
                 if (shouldDelete) {
-                    postJsonData("/obrisi", JSON.stringify({
+                    postJsonData("/obrisi", {
                         ime: test.ime + ".json"
-                    })).then(r => r.json())
+                    }).then(r => r.json())
                         .then(data => console.log(data))
+                    window.location.reload()
                 }
             })
 
