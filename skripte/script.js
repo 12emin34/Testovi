@@ -1,5 +1,6 @@
 let brojPitanja = 1
 let glavniBox = document.getElementById("box")
+let pitanjaContainer = document.getElementById("pitanjaContainer")
 
 class Test {
     #ime = ""
@@ -154,7 +155,7 @@ class Pitanje {
  */
 function novoPitanje(pitanje) {
     
-    let glavniBox = document.getElementById("box")
+    let glavniBox = document.getElementById("pitanjaContainer")
 
     let divPitanjeIOdg = document.createElement("div")
     divPitanjeIOdg.classList.add("box-pitanje")
@@ -248,6 +249,7 @@ function testRender(url) {
         .then(jsonData => {
             let test = Test.fromJSON(jsonData)
             let ukupniBodovi = 0;
+            document.getElementsByClassName("kategorija")[0].style.display = "none";
 
             for (let pitanje of test.pitanja) {
                 novoPitanje(pitanje)
@@ -258,7 +260,7 @@ function testRender(url) {
             let dugmeZaProvjeruSpan = document.createElement("span")
             dugmeZaProvjeruSpan.innerHTML = "Provjeri"
             dugmeZaProvjeru.appendChild(dugmeZaProvjeruSpan)
-            glavniBox.appendChild(dugmeZaProvjeru)
+            pitanjaContainer.appendChild(dugmeZaProvjeru)
             dugmeZaProvjeru.addEventListener("click", (e) => {
                 dugmeZaProvjeru.remove();
                 let rezultati = provjeriOdgovore(test.pitanja)
@@ -276,8 +278,8 @@ function testRender(url) {
                     rezText2.innerText = "Pali ste ispit!";
                 }
 
-                glavniBox.appendChild(rezText);
-                glavniBox.appendChild(rezText2);
+                pitanjaContainer.appendChild(rezText);
+                pitanjaContainer.appendChild(rezText2);
 
             })
 
@@ -287,21 +289,16 @@ function testRender(url) {
 }
 
 function testListRender() {
-    let text = document.createElement("h1")
-    text.innerText = "Izaberi koji test želiš raditi"
-    glavniBox.appendChild(text)
     fetch('test_data/index.json')
         .then(response => response.json())
         .then(jsonData => {
             let testovi = jsonData.testovi
             for (let test of testovi) {
                 let dugmeZaTest = document.createElement("button")
-                dugmeZaTest.className = "provjeriButton"
-                let dugmeZaTestSpan = document.createElement("span")
-                dugmeZaTestSpan.innerHTML = test.replace(".json", "")
-                dugmeZaTest.appendChild(dugmeZaTestSpan)
+                dugmeZaTest.innerText = test.replace(".json", "")
                 dugmeZaTest.addEventListener("click", (e) => {
                     glavniBox.innerText = ""
+                    glavniBox.style.display = "none"
                     testRender('test_data/' + test)
                 })
                 glavniBox.appendChild(dugmeZaTest)

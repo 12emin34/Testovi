@@ -10,7 +10,7 @@
   }
 
 
-#box {
+#pitanjaContainer {
     width: 100%;
     height: 100%;
     display: flex;
@@ -144,13 +144,13 @@
     transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
 
-.box {
-    width: 100%;
-    height: 87vh;
-    background-color:rgb(231, 235, 238);
-    display: flex;
-    flex-direction: row;
-}
+/*.box {*/
+/*    width: 100%;*/
+/*    height: 87vh;*/
+/*    background-color:rgb(231, 235, 238);*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/
 
 .odabirKategorija{
     width: 20%;
@@ -238,7 +238,7 @@
 
 }
 
-.pitanja{
+#box{
     width: 79%;
     height: auto;
     margin-left: 10vw;
@@ -251,7 +251,7 @@
     margin-top: 30px;
 }
 
-.pitanja button{
+#box button{
     width: 15%;
     height: 50px;
     margin: 20px;
@@ -272,7 +272,7 @@
 
 @media only screen and (max-width: 930px) {
   
-    .pitanja button {
+    #box button {
         width: 25%;
     }
 
@@ -284,7 +284,7 @@
 
   @media only screen and (max-width: 700px) {
   
-    .pitanja button {
+    #box button {
         width: 33%;
     }
 
@@ -295,7 +295,7 @@
 
   @media only screen and (max-width: 540px) {
   
-    .pitanja button {
+    #box button {
         width: 50%;
     }
 
