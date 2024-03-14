@@ -285,8 +285,10 @@ function testRender(url) {
                     }
                 }
                 let rezText = document.createElement("p");
-                rezText.innerText = "Osvojili ste " + ukupniBodovi + " bodova (" + (ukupniBodovi * 100) / test.moguciBodovi() + "%) od mogućih " + test.moguciBodovi();
+                rezText.classList.add("resultText")
+                rezText.innerText = "Osvojili ste " + ukupniBodovi + " bodova (" + Math.floor((ukupniBodovi * 100) / test.moguciBodovi()) + "%) od mogućih " + test.moguciBodovi();
                 let rezText2 = document.createElement("p");
+                rezText2.classList.add("resultText")
                 if (ukupniBodovi >= (90 / 100) * test.moguciBodovi()) {
                     rezText2.innerText = "Položili ste ispit!";
                 } else {

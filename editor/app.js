@@ -59,18 +59,18 @@ app.post('/spremi', express.raw({type: '*/*'}), isAuthenticated, (req, res) => {
 
 app.post('/obrisi', express.raw({type: '*/*'}), isAuthenticated, (req, res) => {
     let imeFajla = JSON.parse(req.body.toString()).ime
-    let kategorija = JSON.parse(req.body.toString()).kategorija
+    let kategorijaTesta = JSON.parse(req.body.toString()).kategorija
 
     console.log(JSON.parse(req.body.toString()).ime)
 
-    fs.rmSync(`public/test_data/${kategorija}/` + imeFajla)
+    fs.rmSync(`public/test_data/${kategorijaTesta}/` + imeFajla)
 
-    let index = fs.readFileSync(`public/test_data/${kategorija}/index.json`).toString()
+    let index = fs.readFileSync(`public/test_data/${kategorijaTesta}/index.json`).toString()
     let indexObj = JSON.parse(index);
 
     indexObj.testovi = indexObj.testovi.filter((file) => file !== imeFajla.trim())
 
-    fs.writeFileSync(`public/test_data/${kategorija}/index.json`, JSON.stringify(indexObj), err => {
+    fs.writeFileSync(`public/test_data/${kategorijaTesta}/index.json`, JSON.stringify(indexObj), err => {
         console.log(err)
     })
 

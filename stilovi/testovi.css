@@ -273,6 +273,10 @@
     color: #000;
 }
 
+.resultText {
+    font-size: 30px;
+    padding: 50px;
+}
 
 
 @media only screen and (max-width: 930px) {
@@ -307,5 +311,60 @@
 
     
   }
+
+@media only screen and (max-width: 1800px) {
+    .pitanje {
+        font-size: 14px;
+    }
+
+    .slika {
+        width: 180px;
+        height: 180px;
+    }
+
+    .odgovor {
+        font-size: 14px;
+    }
+
+}
+
+
+
+@media only screen and (max-width: 1150px) {
+    .pitanje {
+        font-size: 12px;
+    }
+
+    .slika {
+        width: 160px;
+        height: 160px;
+    }
+
+    .odgovor {
+        font-size: 12px;
+    }
+
+}
+
+
+@media only screen and (max-width: 500px) {
+
+
+    .box-pitanje.grid-slika {
+        width: 80%;
+        grid-template-columns: 20% 80%;
+        grid-template-rows: 100px 150px 100px;
+        grid-template-areas:
+        "redniBroj" "pitanje"
+        "slika"
+        "odgovor";
+
+    }
+
+    /*.odgovor label {*/
+    /*    padding-left: ;*/
+
+    /*}*/
+}
 
 
