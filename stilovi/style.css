@@ -7,9 +7,10 @@
 ::selection {
     color: #fff;
     background: #e3ae00;
-  }
+}
 
-  .navbar {
+
+.navbar {
     width: 100%;
     height: 100px;
     box-shadow: 0 0 15px rgba(127, 154, 170, 0.4);
@@ -89,14 +90,14 @@
 
 
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
 
     .navbar-list ul {
         display: none;
     }
 
     .navbar-list i {
-        display: block;
+        display: block !important; 
         font-size: 22px;
     }
     .navbar img{
@@ -131,4 +132,3 @@
         width: 100%;
     }
 }
-
