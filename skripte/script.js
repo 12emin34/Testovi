@@ -166,7 +166,7 @@ class Pitanje {
  * @param pitanje
  */
 function novoPitanje(pitanje) {
-    
+
     let glavniBox = document.getElementById("pitanjaContainer")
 
     let divPitanjeIOdg = document.createElement("div")
@@ -193,7 +193,7 @@ function novoPitanje(pitanje) {
     let pPitanje = document.createElement("h4")
     pPitanje.innerText = pitanje.pitanje
     divPitanje.appendChild(pPitanje)
-    
+
     if (pitanje.slika !== "") {
         let divSlika = document.createElement("div")
         divSlika.className = "slika"
@@ -356,3 +356,12 @@ testListRender()
 // test1.pitanja.push(pitanje3)
 //
 // console.log(JSON.stringify(test1.toJSON()))
+
+
+
+const dajBozeDaRadi = document.getElementById('hamburger');
+const navbarNav = document.querySelector('.navbar-list ul');
+
+dajBozeDaRadi.addEventListener('click', function () {
+    navbarNav.classList.toggle('show');
+});
