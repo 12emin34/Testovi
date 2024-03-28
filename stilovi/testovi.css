@@ -140,6 +140,20 @@
     
     }
 
+    .box-pitanje{
+        width: 80%;
+        grid-template-columns: 10% 90%;
+        grid-template-rows: 100px 150px 100px;
+        grid-template-areas: 
+        "redniBroj" "pitanje"
+        "slika"
+        "odgovor";
+    
+    }
+
+
+
+
     .redniBroj{
         display: flex;
         justify-content: flex-end;
