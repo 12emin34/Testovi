@@ -89,6 +89,11 @@
     border-radius: 10px;
 }
 
+.kategorija button.selected {
+    background-color: #fff;
+    color: #000;
+}
+
 
 
 @media only screen and (max-width: 1800px) {
@@ -131,6 +136,17 @@
 
     .box-pitanje.grid-slika {
         width: 80%;
+        grid-template-columns: 20% 80%;
+        grid-template-rows: 100px 150px 100px;
+        grid-template-areas: 
+        "redniBroj" "pitanje"
+        "slika"
+        "odgovor";
+    
+    }
+
+    .box-pitanje{
+        width: 80%;
         grid-template-columns: 10% 90%;
         grid-template-rows: 100px 150px 100px;
         grid-template-areas: 
@@ -154,10 +170,9 @@
 
 
 
-    .redniBroj{
-        display: flex;
-        justify-content: flex-end;
-    }
+
+
+
 
     .odgovor label {
         
@@ -166,6 +181,7 @@
     .pitanje{
         display: flex;
         align-items: center;
+        justify-content: center;
     }
     
     .pitanje h4{
@@ -173,7 +189,7 @@
     }
 
     .slika{
-        width: 1000%;
+        width: 500%;
         height: 100%;
     }
 
